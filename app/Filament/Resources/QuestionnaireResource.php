@@ -35,6 +35,31 @@ class QuestionnaireResource extends Resource
                             ->default(fn(Get $get) => $get('survey.id'))
                             ->native(false)
                             ->columnSpanFull(),
+                        Forms\Components\Section::make("Identitas Petugas")
+                            ->schema([
+                                Forms\Components\TextInput::make('nama_petugas')
+                                    ->label(__('Nama Petugas'))
+                                    ->required()
+                                    ->maxLength(255)
+                                    ->columnSpanFull(),
+                                Forms\Components\TextInput::make('kelompok_dasa_wisma')
+                                    ->label(__('Kelompok Dasa Wisma'))
+                                    ->required()
+                                    ->maxLength(255)
+                                    ->columnSpanFull(),
+                                Forms\Components\Select::make('dusun')
+                                    ->required()
+                                    ->label(__('Dusun'))
+                                    ->options([
+                                        '1' => 'Dusun 1',
+                                        '2' => 'Dusun 2',
+                                        '3' => 'Dusun 3',
+                                        '4' => 'Dusun 4',
+                                        '5' => 'Dusun 5',
+                                        '6' => 'Dusun 6',
+                                    ])
+                                    ->native(false)
+                            ]),
                         Forms\Components\TextInput::make('r_102')
                             ->label(__('Nomor Kartu Keluarga'))
                             ->required()
@@ -159,18 +184,22 @@ class QuestionnaireResource extends Resource
                                 Forms\Components\Section::make('Pekerjaan')
                                     ->visible(fn(Get $get) => $get('r_210') == '1')
                                     ->schema([
-                                        Forms\Components\Radio::make('r_302')
+                                        Forms\Components\Select::make("r_301")
+                                            ->label(__('Di Sektor Apa Pekerjaan Utama '))
                                             ->required()
                                             ->live()
-                                            ->label(__('Apakah Saat Ini Berusaha Tanaman Padi/Palawija?'))
                                             ->options([
-                                                '1' => 'Ya',
-                                                '2' => 'Tidak',
-                                            ]),
+                                                '1' => 'Pertanian Padi/Palawija',
+                                                '2' => 'Perikanan',
+                                                '3' => 'Peternakan',
+                                                '4' => 'Lainnya',
+                                            ])
+                                            ->native(false)
+                                            ->searchable(),
                                         Forms\Components\Repeater::make('Sektor Pertanian Tanaman Padi/Palawija')
-                                            ->visible(fn(Get $get) => $get('r_302') == '1')
+                                            ->visible(fn(Get $get) => $get('r_301') == '1')
                                             ->schema([
-                                                Forms\Components\TextInput::make('r_302_a')
+                                                 Forms\Components\TextInput::make('r_302_a')
                                                     ->label(__('Komoditas yang Diusahakan'))
                                                     ->required()
                                                     ->maxLength(255),
@@ -197,17 +226,17 @@ class QuestionnaireResource extends Resource
                                                     ->label(__('Jumlah Produksi Padi/Palawija dalam Setahun Terakhir (Kg)'))
                                                     ->required()
                                                     ->numeric(),
-                                            ]),
-                                        Forms\Components\Radio::make('r_303')
-                                            ->required()
-                                            ->live()
-                                            ->label(__('Apakah Saat Ini Berusaha Perikanan?'))
-                                            ->options([
-                                                '1' => 'Ya',
-                                                '2' => 'Tidak',
+                                                Forms\Components\TextInput::make('r_302_f')
+                                                    ->label(__('Nilai Produksi dalam Setahun Terakhir (Rp)'))
+                                                    ->required()
+                                                    ->numeric(),
+                                                Forms\Components\TextInput::make('r_302_g')
+                                                    ->label(__('Penghasilan Bersih dalam Setahun Terakhir (Rp)'))
+                                                    ->required()
+                                                    ->numeric(),
                                             ]),
                                         Forms\Components\Repeater::make('Perikanan')
-                                            ->visible(fn(Get $get) => $get('r_303') == '1')
+                                            ->visible(fn(Get $get) => $get('r_301') == '2')
                                             ->schema([
                                                 Forms\Components\TextInput::make('r_303_a')
                                                     ->label(__('Luas Lahan Budidaya'))
@@ -230,17 +259,17 @@ class QuestionnaireResource extends Resource
                                                     ->label(__('Jumlah Produksi Hasil Perikanan dalam Setahun Terakhir (Kg)'))
                                                     ->numeric()
                                                     ->required(),
-                                            ]),
-                                        Forms\Components\Radio::make('r_304')
-                                            ->required()
-                                            ->live()
-                                            ->label(__('Apakah Saat Ini Berusaha Peternakan?'))
-                                            ->options([
-                                                '1' => 'Ya',
-                                                '2' => 'Tidak',
+                                                Forms\Components\TextInput::make('r_303_d')
+                                                    ->label(__('Nilai Produksi dalam Setahun Terakhir (Rp)'))
+                                                    ->numeric()
+                                                    ->required(),
+                                                Forms\Components\TextInput::make('r_303_e')
+                                                    ->label(__('Penghasilan Bersih dalam Setahun Terakhir (Rp)'))
+                                                    ->numeric()
+                                                    ->required(),
                                             ]),
                                         Forms\Components\Repeater::make('Peternakan')
-                                            ->visible(fn(Get $get) => $get('r_304') == '1')
+                                            ->visible(fn(Get $get) => $get('r_301') == '3')
                                             ->schema([
                                                 Forms\Components\Select::make('r_304_a')
                                                     ->required()
@@ -258,19 +287,15 @@ class QuestionnaireResource extends Resource
                                                     ->required(),
                                                 Forms\Components\TextInput::make('r_304_c')
                                                     ->numeric()
-                                                    ->label(__('Hasil Produksi Terjual'))
-                                                    ->required()
+                                                    ->label(__('Nilai Produksi dalam Setahun Terakhir (Rp)'))
+                                                    ->required(),
+                                                Forms\Components\TextInput::make('r_304_d')
+                                                    ->numeric()
+                                                    ->label(__('Penghasilan Bersih dalam Setahun Terakhir (Rp)'))
+                                                    ->required(),
                                             ]),
-                                        Forms\Components\Radio::make('r_305')
-                                            ->required()
-                                            ->live()
-                                            ->label(__('Apakah Saat Ini Memiliki UMKM?'))
-                                            ->options([
-                                                '1' => 'Ya',
-                                                '2' => 'Tidak',
-                                            ]),
-                                        Forms\Components\Repeater::make('UMKM')
-                                            ->visible(fn(Get $get) => $get('r_305') == '1')
+                                        Forms\Components\Repeater::make('Lainnya')
+                                            ->visible(fn(Get $get) => $get('r_301') == '4')
                                             ->schema([
                                                 Forms\Components\TextInput::make('r_305_a')
                                                     ->maxLength(255)
@@ -290,7 +315,160 @@ class QuestionnaireResource extends Resource
                                                     ->required(),
                                                 Forms\Components\TextInput::make('r_305_e')
                                                     ->numeric()
-                                                    ->label(__('Omset Usaha per Bulan (Rp)'))
+                                                    ->label(__('Rata-Rata Omset Usaha per Bulan (Rp)'))
+                                                    ->required(),
+                                                Forms\Components\TextInput::make('r_305_f')
+                                                    ->numeric()
+                                                    ->label(__('Rata-Rata Penghasilan Bersih per Bulan (Rp)'))
+                                                    ->required(),
+                                            ]),
+                                        Forms\Components\Radio::make("r_306_tambah")
+                                            ->label(__('Apakah Ada Pekerjaan Lain?'))
+                                            ->live()
+                                            ->required()
+                                            ->options([
+                                                '1' => 'Ya',
+                                                '2' => 'Tidak',
+                                            ])
+                                            ->default('2')
+                                            ->columnSpanFull(),
+                                        Forms\Components\Select::make("r_301_tambah")
+                                            ->label(__('Di Sektor Apa Pekerjaan Tambahan Anda'))
+                                            ->visible(fn(Get $get) => $get('r_306') == '1')
+                                            ->required()
+                                            ->live()
+                                            ->options([
+                                                '1' => 'Pertanian Padi/Palawija',
+                                                '2' => 'Perikanan',
+                                                '3' => 'Peternakan',
+                                                '4' => 'Lainnya',
+                                            ])
+                                            ->native(false)
+                                            ->searchable(),
+                                        Forms\Components\Repeater::make('Sektor Pertanian Tanaman Padi/Palawija')
+                                            ->visible(fn(Get $get) => $get('r_301_tambah') == '1')
+                                            ->schema([
+                                                Forms\Components\TextInput::make('r_302_a_tambah')
+                                                    ->label(__('Komoditas yang Diusahakan'))
+                                                    ->required()
+                                                    ->maxLength(255),
+                                                Forms\Components\Radio::make('r_302_b_tambah')
+                                                    ->label(__('Jenis Lahan'))
+                                                    ->options([
+                                                        '1' => 'Sawah',
+                                                        '2' => 'Kebun',
+                                                        '3' => 'Lahan Kering',
+                                                    ])
+                                                    ->required(),
+                                                Forms\Components\Radio::make('r_302_c_tambah')
+                                                    ->label(__('Status Kepemilikan Lahan'))
+                                                    ->options([
+                                                        '1' => 'Milik Sendiri',
+                                                        '2' => 'Sewa',
+                                                    ])
+                                                    ->required(),
+                                                Forms\Components\TextInput::make('r_302_d_tambah')
+                                                    ->label(__('Luas Lahan yang Diusahakan (m2)'))
+                                                    ->numeric()
+                                                    ->required(),
+                                                Forms\Components\TextInput::make('r_302_e_tambah')
+                                                    ->label(__('Jumlah Produksi Padi/Palawija dalam Setahun Terakhir (Kg)'))
+                                                    ->required()
+                                                    ->numeric(),
+                                                Forms\Components\TextInput::make('r_302_f_tambah')
+                                                    ->label(__('Nilai Produksi dalam Setahun Terakhir (Rp)'))
+                                                    ->required()
+                                                    ->numeric(),
+                                                Forms\Components\TextInput::make('r_302_g_tambah')
+                                                    ->label(__('Penghasilan Bersih dalam Setahun Terakhir (Rp)'))
+                                                    ->required()
+                                                    ->numeric(),
+                                            ]),
+                                        Forms\Components\Repeater::make('Perikanan')
+                                            ->visible(fn(Get $get) => $get('r_301_tambah') == '2')
+                                            ->schema([
+                                                Forms\Components\TextInput::make('r_303_a_tambah')
+                                                    ->label(__('Luas Lahan Budidaya'))
+                                                    ->required()
+                                                    ->numeric(255),
+                                                Forms\Components\Select::make('r_303_b_tambah')
+                                                    ->label(__('Jenis Ikan yang Diusahakan Setahun Terakhir'))
+                                                    ->options([
+                                                        '1' => 'Ikan Lele',
+                                                        '2' => 'Ikan Nila',
+                                                        '3' => 'Ikan Gurame',
+                                                        '4' => 'Ikan Patin',
+                                                        '5' => 'Ikan Mas',
+                                                        '6' => 'Lainnya',
+                                                    ])
+                                                    ->native(false)
+                                                    ->searchable()
+                                                    ->required(),
+                                                Forms\Components\TextInput::make('r_303_c_tambah')
+                                                    ->label(__('Jumlah Produksi Hasil Perikanan dalam Setahun Terakhir (Kg)'))
+                                                    ->numeric()
+                                                    ->required(),
+                                                Forms\Components\TextInput::make('r_303_d_tambah')
+                                                    ->label(__('Nilai Produksi dalam Setahun Terakhir (Rp)'))
+                                                    ->numeric()
+                                                    ->required(),
+                                                Forms\Components\TextInput::make('r_303_e_tambah')
+                                                    ->label(__('Penghasilan Bersih dalam Setahun Terakhir (Rp)'))
+                                                    ->numeric()
+                                                    ->required(),
+                                            ]),
+                                        Forms\Components\Repeater::make('Peternakan')
+                                            ->visible(fn(Get $get) => $get('r_301_tambah') == '3')
+                                            ->schema([
+                                                Forms\Components\Select::make('r_304_a_tambah')
+                                                    ->required()
+                                                    ->label(__('Jenis Ternak'))
+                                                    ->options([
+                                                        '1' => 'Sapi',
+                                                        '2' => 'Kambing',
+                                                        '3' => 'Ayam',
+                                                        '4' => 'Bebek',
+                                                        '5' => 'Lainnya',
+                                                    ]),
+                                                Forms\Components\TextInput::make('r_304_b_tambah')
+                                                    ->numeric()
+                                                    ->label(__('Jumlah Ternak'))
+                                                    ->required(),
+                                                Forms\Components\TextInput::make('r_304_c_tambah')
+                                                    ->numeric()
+                                                    ->label(__('Nilai Produksi dalam Setahun Terakhir (Rp)'))
+                                                    ->required(),
+                                                Forms\Components\TextInput::make('r_304_d_tambah')
+                                                    ->numeric()
+                                                    ->label(__('Penghasilan Bersih dalam Setahun Terakhir (Rp)'))
+                                                    ->required(),
+                                            ]),
+                                        Forms\Components\Repeater::make('Lainnya')
+                                            ->visible(fn(Get $get) => $get('r_301_tambah') == '4')
+                                            ->schema([
+                                                Forms\Components\TextInput::make('r_305_a_tambah')
+                                                    ->maxLength(255)
+                                                    ->label(__('Nama Pemilik Usaha'))
+                                                    ->required(),
+                                                Forms\Components\TextInput::make('r_305_b_tambah')
+                                                    ->maxLength(255)
+                                                    ->label(__('Produk Usaha'))
+                                                    ->required(),
+                                                Forms\Components\Textarea::make('r_305_c_tambah')
+                                                    ->maxLength(255)
+                                                    ->label(__('Alamat Tempat Usaha'))
+                                                    ->required(),
+                                                Forms\Components\TextInput::make('r_305_d_tambah')
+                                                    ->numeric()
+                                                    ->label(__('Jumlah Pekerja'))
+                                                    ->required(),
+                                                Forms\Components\TextInput::make('r_305_e_tambah')
+                                                    ->numeric()
+                                                    ->label(__('Rata-Rata Omset Usaha per Bulan (Rp)'))
+                                                    ->required(),
+                                                Forms\Components\TextInput::make('r_305_f_tambah')
+                                                    ->numeric()
+                                                    ->label(__('Rata-Rata Penghasilan Bersih per Bulan (Rp)'))
                                                     ->required(),
                                             ]),
                                     ])
