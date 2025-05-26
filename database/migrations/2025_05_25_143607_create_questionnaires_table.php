@@ -14,6 +14,9 @@ return new class extends Migration
         Schema::create('questionnaires', function (Blueprint $table) {
             $table->id();
             $table->foreignId('survey_id')->constrained('surveys')->cascadeOnDelete();
+            $table->string('nama_petugas')->nullable();
+            $table->string('kelompok_dasa_wisma')->nullable();
+            $table->string('dusun')->nullable();
             $table->string('r_102')->nullable();
             $table->string('r_103')->nullable();
             $table->string('r_104')->nullable();
@@ -51,6 +54,8 @@ return new class extends Migration
             $table->integer('r_305_d')->nullable();
             $table->float('r_305_e')->nullable();
             $table->string('r_401')->nullable();
+            $table->string('r_301')->nullable();
+            $table->string('r_301_tambah')->nullable();
             $table->timestamps();
         });
     }
