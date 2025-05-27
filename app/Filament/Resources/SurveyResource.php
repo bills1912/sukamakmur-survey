@@ -24,6 +24,7 @@ class SurveyResource extends Resource
         return $form
             ->schema([
                 Forms\Components\TextInput::make('nama_survey')
+                    ->required()
                     ->maxLength(255),
             ]);
     }
