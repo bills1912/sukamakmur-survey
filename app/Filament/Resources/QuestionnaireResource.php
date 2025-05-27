@@ -18,7 +18,7 @@ class QuestionnaireResource extends Resource
 {
     protected static ?string $model = Questionnaire::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-question-mark-circle';
 
     public static function form(Form $form): Form
     {
