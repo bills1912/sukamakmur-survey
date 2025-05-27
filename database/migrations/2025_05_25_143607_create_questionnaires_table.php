@@ -16,6 +16,7 @@ return new class extends Migration
             $table->foreignId('survey_id')->constrained('surveys')->cascadeOnDelete();
             $table->string('nama_petugas')->nullable();
             $table->string('kelompok_dasa_wisma')->nullable();
+            $table->json('lokasi_rumah')->nullable();
             $table->string('dusun')->nullable();
             $table->string('r_102')->nullable();
             $table->string('r_103')->nullable();

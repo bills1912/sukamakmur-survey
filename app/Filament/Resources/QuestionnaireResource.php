@@ -5,6 +5,7 @@ namespace App\Filament\Resources;
 use Filament\Forms\Get;
 use App\Filament\Resources\QuestionnaireResource\Pages;
 use App\Filament\Resources\QuestionnaireResource\RelationManagers;
+use Afsakar\LeafletMapPicker\LeafletMapPicker;
 use App\Models\Questionnaire;
 use Filament\Forms;
 use Filament\Forms\Form;
@@ -18,7 +19,7 @@ class QuestionnaireResource extends Resource
 {
     protected static ?string $model = Questionnaire::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-question-mark-circle';
 
     public static function form(Form $form): Form
     {
@@ -30,7 +31,7 @@ class QuestionnaireResource extends Resource
                         Forms\Components\Select::make('survey_id')
                             ->label(__('ID Survey'))
                             ->required()
-                            ->hidden()
+                            ->disabled()
                             ->relationship('survey', 'id')
                             ->default(1)
                             ->native(false)
@@ -58,7 +59,11 @@ class QuestionnaireResource extends Resource
                                         '5' => 'Dusun 5',
                                         '6' => 'Dusun 6',
                                     ])
-                                    ->native(false)
+                                    ->native(false),
+                                LeafletMapPicker::make('lokasi_rumah')
+                                    ->label('Lokasi Rumah Responden')
+                                    ->myLocationButtonLabel('Go to My Location')
+                                    ->hideTileControl()
                             ]),
                         Forms\Components\TextInput::make('r_102')
                             ->label(__('Nomor Kartu Keluarga'))

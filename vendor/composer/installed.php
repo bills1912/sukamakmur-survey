@@ -1,15 +1,24 @@
 <?php return array(
     'root' => array(
         'name' => 'siubie/kaido-kit',
-        'pretty_version' => '1.0.0+no-version-set',
-        'version' => '1.0.0.0',
-        'reference' => NULL,
+        'pretty_version' => 'dev-master',
+        'version' => 'dev-master',
+        'reference' => '3ff4411cecff93cab27ac640a6ff8dc4b81a2496',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
         'dev' => true,
     ),
     'versions' => array(
+        'afsakar/filament-leaflet-map-picker' => array(
+            'pretty_version' => 'v1.3.0',
+            'version' => '1.3.0.0',
+            'reference' => 'ebcdf8b2519c3c1e9132df9b49d4546a109cb6e6',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../afsakar/filament-leaflet-map-picker',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
         'anourvalar/eloquent-serialize' => array(
             'pretty_version' => '1.2.29',
             'version' => '1.2.29.0',
@@ -1590,9 +1599,9 @@
             'dev_requirement' => true,
         ),
         'siubie/kaido-kit' => array(
-            'pretty_version' => '1.0.0+no-version-set',
-            'version' => '1.0.0.0',
-            'reference' => NULL,
+            'pretty_version' => 'dev-master',
+            'version' => 'dev-master',
+            'reference' => '3ff4411cecff93cab27ac640a6ff8dc4b81a2496',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
