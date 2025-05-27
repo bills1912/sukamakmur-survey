@@ -31,7 +31,7 @@ class QuestionnaireResource extends Resource
                         Forms\Components\Select::make('survey_id')
                             ->label(__('ID Survey'))
                             ->required()
-                            ->hidden()
+                            ->disabled()
                             ->relationship('survey', 'id')
                             ->default(1)
                             ->native(false)
