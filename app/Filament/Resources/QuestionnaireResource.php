@@ -5,6 +5,7 @@ namespace App\Filament\Resources;
 use Filament\Forms\Get;
 use App\Filament\Resources\QuestionnaireResource\Pages;
 use App\Filament\Resources\QuestionnaireResource\RelationManagers;
+use Afsakar\LeafletMapPicker\LeafletMapPicker;
 use App\Models\Questionnaire;
 use Filament\Forms;
 use Filament\Forms\Form;
@@ -58,7 +59,11 @@ class QuestionnaireResource extends Resource
                                         '5' => 'Dusun 5',
                                         '6' => 'Dusun 6',
                                     ])
-                                    ->native(false)
+                                    ->native(false),
+                                LeafletMapPicker::make('lokasi_rumah')
+                                    ->label('Lokasi Rumah Responden')
+                                    ->myLocationButtonLabel('Go to My Location')
+                                    ->hideTileControl()
                             ]),
                         Forms\Components\TextInput::make('r_102')
                             ->label(__('Nomor Kartu Keluarga'))

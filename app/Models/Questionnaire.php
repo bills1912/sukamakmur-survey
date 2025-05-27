@@ -70,5 +70,6 @@ class Questionnaire extends Model
 
     protected $casts = [
         'r_200' => 'json',
+        'lokasi_rumah' => 'json',
     ];
 }
