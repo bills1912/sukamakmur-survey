@@ -32,7 +32,7 @@ class QuestionnaireResource extends Resource
                             ->required()
                             ->hidden()
                             ->relationship('survey', 'id')
-                            ->default(fn(Get $get) => $get('survey.id'))
+                            ->default(1)
                             ->native(false)
                             ->columnSpanFull(),
                         Forms\Components\Section::make("Identitas Petugas")
@@ -64,7 +64,9 @@ class QuestionnaireResource extends Resource
                             ->label(__('Nomor Kartu Keluarga'))
                             ->required()
                             ->columnSpanFull()
-                            ->numeric()
+                            // ->tel()
+                            // ->telRegex('/^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\.\/0-9]*$/')
+                            // ->numeric()
                             ->length(16)
                             ->extraInputAttributes([
                                 'oninput' => "this.value = this.value.slice(0, 16);",
@@ -89,19 +91,19 @@ class QuestionnaireResource extends Resource
                         Forms\Components\Repeater::make('r_200')
                             ->label(__('Anggota Keluarga'))
                             ->schema([
-                                Forms\Components\TextInput::make('anggotaKeluargas.r_201')
+                                Forms\Components\TextInput::make('r_201')
                                     ->label(__('Nama Anggota Keluarga'))
                                     ->required()
                                     ->maxLength(255),
                                 Forms\Components\TextInput::make('r_202')
                                     ->label(__('Nomor Induk Kependudukan (NIK)'))
                                     ->required()
-                                    ->numeric()
+                                    // ->numeric()
                                     ->length(16)
                                     ->extraInputAttributes([
                                         'oninput' => "this.value = this.value.slice(0, 16);",
                                     ]),
-                                Forms\Components\Radio::make('anggotaKeluargas.r_203')
+                                Forms\Components\Radio::make('r_203')
                                     ->required()
                                     ->label(__('Status Keluarga'))
                                     ->options([
@@ -152,14 +154,15 @@ class QuestionnaireResource extends Resource
                                 Forms\Components\Radio::make('r_210')
                                     ->required()
                                     ->live()
-                                    ->label(__('Apakah Saat Ini Berdomisili di Desa Suka Makmur?'))
+                                    ->label(__('Keberadaan Penduduk'))
                                     ->options([
-                                        '1' => 'Ya',
-                                        '2' => 'Tidak',
+                                        '1' => 'Berdomisili di Desa Suka Makmur',
+                                        '2' => 'Sudah Pindah ke luar Desa Suka Makmur',
+                                        '3' => 'Membentuk Keluarga Baru di Desa Suka Makmur',
+                                        '4' => 'Sudah Meninggal',
                                     ]),
                                 Forms\Components\CheckboxList::make('r_211')
-                                    ->required()
-                                    ->label(__('Apakah Penyandang Disabilitas?'))
+                                    ->label(__('Apakah Penyandang Disabilitas? (Boleh lebih dari satu)'))
                                     ->options([
                                         '1' => 'Penglihatan',
                                         '2' => 'Pendengaran',
@@ -199,7 +202,7 @@ class QuestionnaireResource extends Resource
                                         Forms\Components\Repeater::make('Sektor Pertanian Tanaman Padi/Palawija')
                                             ->visible(fn(Get $get) => $get('r_301') == '1')
                                             ->schema([
-                                                 Forms\Components\TextInput::make('r_302_a')
+                                                Forms\Components\TextInput::make('r_302_a')
                                                     ->label(__('Komoditas yang Diusahakan'))
                                                     ->required()
                                                     ->maxLength(255),
@@ -216,6 +219,8 @@ class QuestionnaireResource extends Resource
                                                     ->options([
                                                         '1' => 'Milik Sendiri',
                                                         '2' => 'Sewa',
+                                                        '3' => 'Bebas Sewa',
+                                                        '4' => 'Lainnya',
                                                     ])
                                                     ->required(),
                                                 Forms\Components\TextInput::make('r_302_d')
@@ -322,7 +327,7 @@ class QuestionnaireResource extends Resource
                                                     ->label(__('Rata-Rata Penghasilan Bersih per Bulan (Rp)'))
                                                     ->required(),
                                             ]),
-                                        Forms\Components\Radio::make("r_306_tambah")
+                                        Forms\Components\Radio::make("r_306")
                                             ->label(__('Apakah Ada Pekerjaan Lain?'))
                                             ->live()
                                             ->required()
@@ -365,6 +370,8 @@ class QuestionnaireResource extends Resource
                                                     ->options([
                                                         '1' => 'Milik Sendiri',
                                                         '2' => 'Sewa',
+                                                        '3' => 'Bebas Sewa',
+                                                        '4' => 'Lainnya',
                                                     ])
                                                     ->required(),
                                                 Forms\Components\TextInput::make('r_302_d_tambah')
