@@ -16,6 +16,7 @@
         "afsakar/filament-leaflet-map-picker": "^1.3",
         "bezhansalleh/filament-shield": "^3.3",
         "dedoc/scramble": "^0.12.10",
+        "dotswan/filament-map-picker": "^1.8",
         "dutchcodingcompany/filament-socialite": "^2.3",
         "filament/filament": "^3.2",
         "filament/spatie-laravel-media-library-plugin": "^3.2",

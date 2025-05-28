@@ -43,9 +43,9 @@ class ComposerStaticInitcdd07a0c4f1ab8ecad11d4ebca69f4bf
         '2ad94ea6f6f6013119e9abcf4e302a08' => __DIR__ . '/..' . '/filament/forms/src/helpers.php',
         '6124b4c8570aa390c21fafd04a26c69f' => __DIR__ . '/..' . '/myclabs/deep-copy/src/DeepCopy/deep_copy.php',
         'b69d5f1f95cd1ed438c038b6cbcc45b5' => __DIR__ . '/..' . '/filament/notifications/src/Testing/Autoload.php',
-        'ec07570ca5a812141189b1fa81503674' => __DIR__ . '/..' . '/phpunit/phpunit/src/Framework/Assert/Functions.php',
         '89e9938b64b06cc502d7ceca69a380fe' => __DIR__ . '/..' . '/filament/filament/src/global_helpers.php',
         'ebb446bb6d02e998480945fbbb73dc64' => __DIR__ . '/..' . '/filament/filament/src/helpers.php',
+        'ec07570ca5a812141189b1fa81503674' => __DIR__ . '/..' . '/phpunit/phpunit/src/Framework/Assert/Functions.php',
         'decc78cc4436b1292c6c0d151b19445c' => __DIR__ . '/..' . '/phpseclib/phpseclib/phpseclib/bootstrap.php',
         '2cffec82183ee1cea088009cef9a6fc3' => __DIR__ . '/..' . '/ezyang/htmlpurifier/library/HTMLPurifier.composer.php',
         'a1cfe24d14977df6878b9bf804af2d1c' => __DIR__ . '/..' . '/nunomaduro/collision/src/Adapters/Phpunit/Autoload.php',
@@ -261,6 +261,8 @@ class ComposerStaticInitcdd07a0c4f1ab8ecad11d4ebca69f4bf
             'DutchCodingCompany\\FilamentSocialite\\Tests\\' => 43,
             'DutchCodingCompany\\FilamentSocialite\\Database\\Factories\\' => 56,
             'DutchCodingCompany\\FilamentSocialite\\' => 37,
+            'Dotswan\\MapPicker\\Database\\Factories\\' => 37,
+            'Dotswan\\MapPicker\\' => 18,
             'Dotenv\\' => 7,
             'Doctrine\\Inflector\\' => 19,
             'Doctrine\\Deprecations\\' => 22,
@@ -858,6 +860,14 @@ class ComposerStaticInitcdd07a0c4f1ab8ecad11d4ebca69f4bf
         'DutchCodingCompany\\FilamentSocialite\\' => 
         array (
             0 => __DIR__ . '/..' . '/dutchcodingcompany/filament-socialite/src',
+        ),
+        'Dotswan\\MapPicker\\Database\\Factories\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/dotswan/filament-map-picker/database/factories',
+        ),
+        'Dotswan\\MapPicker\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/dotswan/filament-map-picker/src',
         ),
         'Dotenv\\' => 
         array (
@@ -2257,6 +2267,11 @@ class ComposerStaticInitcdd07a0c4f1ab8ecad11d4ebca69f4bf
         'Dotenv\\Util\\Regex' => __DIR__ . '/..' . '/vlucas/phpdotenv/src/Util/Regex.php',
         'Dotenv\\Util\\Str' => __DIR__ . '/..' . '/vlucas/phpdotenv/src/Util/Str.php',
         'Dotenv\\Validator' => __DIR__ . '/..' . '/vlucas/phpdotenv/src/Validator.php',
+        'Dotswan\\MapPicker\\Contracts\\MapOptions' => __DIR__ . '/..' . '/dotswan/filament-map-picker/src/Contracts/MapOptions.php',
+        'Dotswan\\MapPicker\\Facades\\MapPicker' => __DIR__ . '/..' . '/dotswan/filament-map-picker/src/Facades/MapPicker.php',
+        'Dotswan\\MapPicker\\Fields\\Map' => __DIR__ . '/..' . '/dotswan/filament-map-picker/src/Fields/Map.php',
+        'Dotswan\\MapPicker\\Infolists\\MapEntry' => __DIR__ . '/..' . '/dotswan/filament-map-picker/src/Infolists/MapEntry.php',
+        'Dotswan\\MapPicker\\MapPickerServiceProvider' => __DIR__ . '/..' . '/dotswan/filament-map-picker/src/MapPickerServiceProvider.php',
         'DutchCodingCompany\\FilamentSocialite\\Events\\InvalidState' => __DIR__ . '/..' . '/dutchcodingcompany/filament-socialite/src/Events/InvalidState.php',
         'DutchCodingCompany\\FilamentSocialite\\Events\\Login' => __DIR__ . '/..' . '/dutchcodingcompany/filament-socialite/src/Events/Login.php',
         'DutchCodingCompany\\FilamentSocialite\\Events\\Registered' => __DIR__ . '/..' . '/dutchcodingcompany/filament-socialite/src/Events/Registered.php',
