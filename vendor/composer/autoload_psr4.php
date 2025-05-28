@@ -142,6 +142,8 @@ return array(
     'DutchCodingCompany\\FilamentSocialite\\Tests\\' => array($vendorDir . '/dutchcodingcompany/filament-socialite/tests'),
     'DutchCodingCompany\\FilamentSocialite\\Database\\Factories\\' => array($vendorDir . '/dutchcodingcompany/filament-socialite/database/factories'),
     'DutchCodingCompany\\FilamentSocialite\\' => array($vendorDir . '/dutchcodingcompany/filament-socialite/src'),
+    'Dotswan\\MapPicker\\Database\\Factories\\' => array($vendorDir . '/dotswan/filament-map-picker/database/factories'),
+    'Dotswan\\MapPicker\\' => array($vendorDir . '/dotswan/filament-map-picker/src'),
     'Dotenv\\' => array($vendorDir . '/vlucas/phpdotenv/src'),
     'Doctrine\\Inflector\\' => array($vendorDir . '/doctrine/inflector/lib/Doctrine/Inflector'),
     'Doctrine\\Deprecations\\' => array($vendorDir . '/doctrine/deprecations/src'),
