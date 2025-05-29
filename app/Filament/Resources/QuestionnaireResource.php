@@ -14,6 +14,9 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Closure;
+use Carbon\Carbon;
+use Filament\Forms\Set;
 
 class QuestionnaireResource extends Resource
 {
@@ -52,26 +55,33 @@ class QuestionnaireResource extends Resource
                                     ->required()
                                     ->label(__('Dusun'))
                                     ->options([
-                                        '1' => 'Dusun 1',
-                                        '2' => 'Dusun 2',
-                                        '3' => 'Dusun 3',
-                                        '4' => 'Dusun 4',
+                                        '1' => 'Dusun I-A',
+                                        '2' => 'Dusun I-B',
+                                        '3' => 'Dusun II Timur',
+                                        '4' => 'Dusun II Barat',
                                         '5' => 'Dusun 5',
                                         '6' => 'Dusun 6',
                                     ])
                                     ->native(false),
+                                Forms\Components\TimePicker::make('waktu_pendataan')
+                                    ->default(Carbon::now())
+                                    ->label(__('Waktu Pendataan'))
+                                    ->required()
+                                    ->disabled()
+                                    // ->step(30) // Increment by 30 minutes
+                                    // ->format('H:i')
+                                    ->timezone('Asia/Jakarta')
+                                    ->native(false), // 24-hour format,
                                 LeafletMapPicker::make('lokasi_rumah')
                                     ->label('Lokasi Rumah Responden')
                                     ->myLocationButtonLabel('Go to My Location')
                                     ->hideTileControl()
+                                    ->draggable(false)
                             ]),
                         Forms\Components\TextInput::make('r_102')
                             ->label(__('Nomor Kartu Keluarga'))
                             ->required()
                             ->columnSpanFull()
-                            // ->tel()
-                            // ->telRegex('/^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\.\/0-9]*$/')
-                            // ->numeric()
                             ->length(16)
                             ->extraInputAttributes([
                                 'oninput' => "this.value = this.value.slice(0, 16);",
@@ -119,7 +129,7 @@ class QuestionnaireResource extends Resource
                                         '5' => 'Orang Tua/Mertua',
                                         '6' => 'Famili Lain',
                                     ]),
-                                Forms\Components\Radio::make('anggotaKeluargas.r_204')
+                                Forms\Components\Radio::make('r_204')
                                     ->required()
                                     ->label(__('Status Perkawinan'))
                                     ->options([
@@ -141,10 +151,23 @@ class QuestionnaireResource extends Resource
                                     ->maxLength(255),
                                 Forms\Components\DatePicker::make('r_207')
                                     ->required()
+                                    ->timezone('Asia/Jakarta')
+                                    ->format('d/m/Y')
+                                    ->live()
+                                    ->locale('id')
                                     ->label(__('Tanggal Lahir'))
                                     ->native(false)
-                                    ->displayFormat('d m Y')
-                                    ->locale('id'),
+                                    ->displayFormat('D, d M Y')
+                                    // ->locale('id')
+                                    ->afterStateUpdated(function (Set $set, $state) {
+                                        $set('r_207_usia', Carbon::parse($state)->age);
+                                    }),
+                                Forms\Components\TextInput::make('r_207_usia')
+                                    ->label(__('Usia'))
+                                    ->disabled()
+                                    ->required()
+                                    ->dehydrated(false)
+                                    ->helperText(__('Usia dalam tahun')),
                                 Forms\Components\TextInput::make('r_208')
                                     ->maxLength(255)
                                     ->required()
@@ -517,6 +540,9 @@ class QuestionnaireResource extends Resource
                 Tables\Columns\TextColumn::make('updated_at')
                     ->dateTime()
                     ->sortable(),
+                Tables\Columns\TextColumn::make('nama_petugas')
+                    ->label(__('Petugas Pendata'))
+                    ->searchable(),
             ])
             ->filters([
                 //

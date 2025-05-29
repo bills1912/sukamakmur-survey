@@ -28,6 +28,7 @@ use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
 use Jeffgreco13\FilamentBreezy\BreezyCore;
 use Rupadana\ApiService\ApiServicePlugin;
+use AssistantEngine\Filament\FilamentAssistantPlugin;
 
 use Laravel\Socialite\Contracts\User as SocialiteUserContract;
 use Illuminate\Contracts\Auth\Authenticatable;
@@ -119,6 +120,7 @@ class AdminPanelProvider extends PanelProvider
                         ->disk('public')
                 )
                 ->enableTwoFactorAuthentication(),
+            // FilamentAssistantPlugin::make()
         ];
 
         if ($this->settings->sso_enabled ?? true) {
