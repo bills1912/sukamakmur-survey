@@ -1,0 +1,7 @@
+/combine/
+.idea/
+/vendor/
+/demo/
+composer.lock
+cleanup.sh
+.DS_Store
