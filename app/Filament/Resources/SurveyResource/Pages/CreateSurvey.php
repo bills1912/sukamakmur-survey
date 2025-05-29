@@ -10,6 +10,8 @@ class CreateSurvey extends CreateRecord
 {
     protected static string $resource = SurveyResource::class;
     protected static bool $canCreateAnother = false;
+    protected static ?string $title = 'Buat Survei Baru';
+
 
     //customize redirect after create
     public function getRedirectUrl(): string

@@ -10,10 +10,13 @@ class ListQuestionnaires extends ListRecords
 {
     protected static string $resource = QuestionnaireResource::class;
 
+    protected static ?string $title = 'Daftar Hasil Pendataan';
+
     protected function getHeaderActions(): array
     {
         return [
-            Actions\CreateAction::make(),
+            Actions\CreateAction::make()
+                ->label("Buat Pendataan Baru"),
         ];
     }
 }

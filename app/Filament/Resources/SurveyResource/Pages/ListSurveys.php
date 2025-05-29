@@ -10,10 +10,13 @@ class ListSurveys extends ListRecords
 {
     protected static string $resource = SurveyResource::class;
 
+    protected static ?string $title = 'Daftar Survei';
+
     protected function getHeaderActions(): array
     {
         return [
-            Actions\CreateAction::make(),
+            Actions\CreateAction::make()
+                ->label("Buat Survei Baru"),
         ];
     }
 }
