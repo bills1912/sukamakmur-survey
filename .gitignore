@@ -3,8 +3,8 @@
 /public/storage
 /storage/*.key
 /storage/pail
-# /node_modules
-# /vendor
+/node_modules
+/vendor
 .env
 .env.backup
 .env.production
