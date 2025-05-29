@@ -22,6 +22,9 @@ class QuestionnaireResource extends Resource
 {
     protected static ?string $model = Questionnaire::class;
 
+    protected static ?string $navigationLabel = 'Kuesioner';
+    protected static ?string $title = 'User Management';
+
     protected static ?string $navigationIcon = 'heroicon-o-question-mark-circle';
 
     public static function form(Form $form): Form
@@ -59,8 +62,8 @@ class QuestionnaireResource extends Resource
                                         '2' => 'Dusun I-B',
                                         '3' => 'Dusun II Timur',
                                         '4' => 'Dusun II Barat',
-                                        '5' => 'Dusun 5',
-                                        '6' => 'Dusun 6',
+                                        '5' => 'Dusun III',
+                                        '6' => 'Dusun IV',
                                     ])
                                     ->native(false),
                                 Forms\Components\TimePicker::make('waktu_pendataan')
@@ -151,14 +154,12 @@ class QuestionnaireResource extends Resource
                                     ->maxLength(255),
                                 Forms\Components\DatePicker::make('r_207')
                                     ->required()
-                                    ->timezone('Asia/Jakarta')
-                                    ->format('d/m/Y')
-                                    ->live()
                                     ->locale('id')
+                                    ->timezone('Asia/Jakarta')
+                                    ->live()
                                     ->label(__('Tanggal Lahir'))
                                     ->native(false)
                                     ->displayFormat('D, d M Y')
-                                    // ->locale('id')
                                     ->afterStateUpdated(function (Set $set, $state) {
                                         $set('r_207_usia', Carbon::parse($state)->age);
                                     }),

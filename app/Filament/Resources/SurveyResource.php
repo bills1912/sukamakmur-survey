@@ -15,6 +15,7 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class SurveyResource extends Resource
 {
+    protected static ?string $navigationLabel = 'Daftar Survei';
     protected static ?string $model = Survey::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';

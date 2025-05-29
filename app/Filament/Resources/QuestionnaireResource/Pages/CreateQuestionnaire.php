@@ -11,6 +11,9 @@ class CreateQuestionnaire extends CreateRecord
     protected static string $resource = QuestionnaireResource::class;
     protected static bool $canCreateAnother = false;
 
+    protected static ?string $title = 'Pendataan Baru';
+
+
     //customize redirect after create
     public function getRedirectUrl(): string
     {

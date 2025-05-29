@@ -10,6 +10,9 @@ class EditQuestionnaire extends EditRecord
 {
     protected static string $resource = QuestionnaireResource::class;
 
+    protected static ?string $title = 'Edit Kuesioner';
+
+
     protected function getHeaderActions(): array
     {
         return [

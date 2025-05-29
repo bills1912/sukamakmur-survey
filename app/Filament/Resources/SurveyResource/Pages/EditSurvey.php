@@ -9,6 +9,8 @@ use Filament\Resources\Pages\EditRecord;
 class EditSurvey extends EditRecord
 {
     protected static string $resource = SurveyResource::class;
+    protected static ?string $title = 'Edit Judul Survei';
+
 
     protected function getHeaderActions(): array
     {
