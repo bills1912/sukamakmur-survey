@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('nama_petugas')->nullable();
             $table->string('kelompok_dasa_wisma')->nullable();
             $table->json('lokasi_rumah')->nullable();
-            $table->timestamp('waktu_pendataan')->nullable();
+            $table->string('waktu_pendataan')->nullable();
             $table->string('dusun')->nullable();
             $table->string('r_102')->nullable();
             $table->string('r_103')->nullable();
