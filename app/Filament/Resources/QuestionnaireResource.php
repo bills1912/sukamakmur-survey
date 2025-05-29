@@ -54,18 +54,6 @@ class QuestionnaireResource extends Resource
                                     ->required()
                                     ->maxLength(255)
                                     ->columnSpanFull(),
-                                Forms\Components\Select::make('dusun')
-                                    ->required()
-                                    ->label(__('Dusun'))
-                                    ->options([
-                                        '1' => 'Dusun I-A',
-                                        '2' => 'Dusun I-B',
-                                        '3' => 'Dusun II Timur',
-                                        '4' => 'Dusun II Barat',
-                                        '5' => 'Dusun III',
-                                        '6' => 'Dusun IV',
-                                    ])
-                                    ->native(false),
                                 Forms\Components\TimePicker::make('waktu_pendataan')
                                     ->default(Carbon::now())
                                     ->label(__('Waktu Pendataan'))
@@ -88,6 +76,18 @@ class QuestionnaireResource extends Resource
                             ->extraInputAttributes([
                                 'oninput' => "this.value = this.value.slice(0, 16);",
                             ]),
+                        Forms\Components\Select::make('dusun')
+                            ->required()
+                            ->label(__('Dusun'))
+                            ->options([
+                                '1' => 'Dusun I-A',
+                                '2' => 'Dusun I-B',
+                                '3' => 'Dusun II Timur',
+                                '4' => 'Dusun II Barat',
+                                '5' => 'Dusun III',
+                                '6' => 'Dusun IV',
+                            ])
+                            ->native(false),
                         Forms\Components\Radio::make('r_103')
                             ->live()
                             ->label(__('Status KK'))
