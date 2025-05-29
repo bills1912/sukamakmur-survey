@@ -70,11 +70,10 @@ class QuestionnaireResource extends Resource
                                     ->default(Carbon::now())
                                     ->label(__('Waktu Pendataan'))
                                     ->required()
-                                    ->disabled()
-                                    // ->step(30) // Increment by 30 minutes
-                                    // ->format('H:i')
+                                    ->readonly()
+                                    ->format('H:i:s')
                                     ->timezone('Asia/Jakarta')
-                                    ->native(false), // 24-hour format,
+                                    ->native(false),
                                 LeafletMapPicker::make('lokasi_rumah')
                                     ->label('Lokasi Rumah Responden')
                                     ->myLocationButtonLabel('Go to My Location')
@@ -165,9 +164,9 @@ class QuestionnaireResource extends Resource
                                     }),
                                 Forms\Components\TextInput::make('r_207_usia')
                                     ->label(__('Usia'))
-                                    ->disabled()
+                                    ->readonly()
                                     ->required()
-                                    ->dehydrated(false)
+                                    ->dehydrated(true)
                                     ->helperText(__('Usia dalam tahun')),
                                 Forms\Components\TextInput::make('r_208')
                                     ->maxLength(255)
