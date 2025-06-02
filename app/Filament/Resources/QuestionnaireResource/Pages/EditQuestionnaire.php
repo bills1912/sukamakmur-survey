@@ -24,4 +24,19 @@ class EditQuestionnaire extends EditRecord
     {
         return $this->getResource()::getUrl('index');
     }
+
+    protected function getFormActions(): array
+    {
+        return [
+            // $this->getCreateFormAction(),
+            $this->getSaveFormAction()
+                ->label("Simpan Perubahan")
+                ->icon('heroicon-s-check-circle')
+                ->color('success'),
+            $this->getCancelFormAction()
+                ->label('Batal')
+                ->icon('heroicon-o-x-circle')
+                ->color('danger'),
+        ];
+    }
 }
