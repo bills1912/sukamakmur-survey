@@ -18,6 +18,7 @@ use Closure;
 use Carbon\Carbon;
 use Filament\Forms\Set;
 use Illuminate\Support\Facades\Auth;
+use Filament\Forms\Components\Actions\Action;
 
 class QuestionnaireResource extends Resource
 {
@@ -49,7 +50,7 @@ class QuestionnaireResource extends Resource
                                     ->label(__('Nama Petugas'))
                                     ->required()
                                     ->maxLength(255)
-                                    ->disabled()
+                                    ->readonly()
                                     ->default(Auth::user()->name)
                                     ->columnSpanFull(),
                                 Forms\Components\TimePicker::make('waktu_pendataan')
@@ -228,7 +229,7 @@ class QuestionnaireResource extends Resource
                                             ->live()
                                             ->label(__('Bekerja Sebagai Apa?'))
                                             ->options([
-                                                '1' => 'Pengusaha',
+                                                '1' => 'Berusaha/Pemilik Usaha',
                                                 '2' => 'Buruh/Pegawai',
                                                 '3' => 'Pekerja Bebas',
                                             ]),
@@ -287,7 +288,9 @@ class QuestionnaireResource extends Resource
                                                             ->label(__('Penghasilan Bersih dalam Setahun Terakhir (Rp)'))
                                                             ->required()
                                                             ->numeric(),
-                                                    ]),
+                                                    ])
+                                                    ->addActionLabel('Tambah Pekerjaan')
+                                                    ->columnSpanFull(),
                                                 Forms\Components\Repeater::make('Perikanan')
                                                     ->visible(fn(Get $get) => $get('r_301') == '2')
                                                     ->schema([
@@ -320,7 +323,9 @@ class QuestionnaireResource extends Resource
                                                             ->label(__('Penghasilan Bersih dalam Setahun Terakhir (Rp)'))
                                                             ->numeric()
                                                             ->required(),
-                                                    ]),
+                                                    ])
+                                                    ->addActionLabel('Tambah Pekerjaan')
+                                                    ->columnSpanFull(),
                                                 Forms\Components\Repeater::make('Peternakan')
                                                     ->visible(fn(Get $get) => $get('r_301') == '3')
                                                     ->schema([
@@ -347,7 +352,9 @@ class QuestionnaireResource extends Resource
                                                             ->numeric()
                                                             ->label(__('Penghasilan Bersih dalam Setahun Terakhir (Rp)'))
                                                             ->required(),
-                                                    ]),
+                                                    ])
+                                                    ->addActionLabel('Tambah Pekerjaan')
+                                                    ->columnSpanFull(),
                                                 Forms\Components\Repeater::make('Lainnya')
                                                     ->visible(fn(Get $get) => $get('r_301') == '4')
                                                     ->schema([
@@ -375,7 +382,9 @@ class QuestionnaireResource extends Resource
                                                             ->numeric()
                                                             ->label(__('Rata-Rata Penghasilan Bersih per Bulan (Rp)'))
                                                             ->required(),
-                                                    ]),
+                                                    ])
+                                                    ->addActionLabel('Tambah Pekerjaan')
+                                                    ->columnSpanFull(),
                                                 Forms\Components\Radio::make("r_306")
                                                     ->label(__('Apakah Ada Usaha Lain?'))
                                                     ->visible(fn(Get $get) => $get('r_301') != null)
@@ -437,7 +446,9 @@ class QuestionnaireResource extends Resource
                                                             ->label(__('Penghasilan Bersih dalam Setahun Terakhir (Rp)'))
                                                             ->required()
                                                             ->numeric(),
-                                                    ]),
+                                                    ])
+                                                    ->addActionLabel('Tambah Pekerjaan')
+                                                    ->columnSpanFull(),
                                                 Forms\Components\Repeater::make('Perikanan')
                                                     ->visible(fn(Get $get) => $get('r_301_tambah') == '2')
                                                     ->schema([
@@ -470,7 +481,9 @@ class QuestionnaireResource extends Resource
                                                             ->label(__('Penghasilan Bersih dalam Setahun Terakhir (Rp)'))
                                                             ->numeric()
                                                             ->required(),
-                                                    ]),
+                                                    ])
+                                                    ->addActionLabel('Tambah Pekerjaan')
+                                                    ->columnSpanFull(),
                                                 Forms\Components\Repeater::make('Peternakan')
                                                     ->visible(fn(Get $get) => $get('r_301_tambah') == '3')
                                                     ->schema([
@@ -496,7 +509,9 @@ class QuestionnaireResource extends Resource
                                                             ->numeric()
                                                             ->label(__('Penghasilan Bersih dalam Setahun Terakhir (Rp)'))
                                                             ->required(),
-                                                    ]),
+                                                    ])
+                                                    ->addActionLabel('Tambah Pekerjaan')
+                                                    ->columnSpanFull(),
                                                 Forms\Components\Repeater::make('Lainnya')
                                                     ->visible(fn(Get $get) => $get('r_301_tambah') == '4')
                                                     ->schema([
@@ -524,7 +539,9 @@ class QuestionnaireResource extends Resource
                                                             ->numeric()
                                                             ->label(__('Rata-Rata Penghasilan Bersih per Bulan (Rp)'))
                                                             ->required(),
-                                                    ]),
+                                                    ])
+                                                    ->addActionLabel('Tambah Pekerjaan')
+                                                    ->columnSpanFull(),
                                             ]),
                                         Forms\Components\Fieldset::make('Buruh/Pegawai')
                                             ->visible(fn(Get $get) => $get('r_301_usaha_buruh_pekerjaBebas') == '2')
@@ -558,8 +575,8 @@ class QuestionnaireResource extends Resource
                                                             ->required()
                                                             ->maxLength(255),
                                                     ])
+                                                    ->addActionLabel('Tambah Pekerjaan')
                                                     ->columnSpanFull(),
-
                                                 Forms\Components\Repeater::make('Buruh/Pegawai Sektor Non Pertanian')
                                                     ->visible(fn(Get $get) => $get('r_307') == '2')
                                                     ->schema([
@@ -587,8 +604,9 @@ class QuestionnaireResource extends Resource
                                                             ->visible(fn(Get $get) => $get('r_309_a') == '99')
                                                             ->required()
                                                             ->maxLength(255),
-                                                    ]),
-
+                                                    ])
+                                                    ->addActionLabel('Tambah Pekerjaan')
+                                                    ->columnSpanFull(),
                                                 Forms\Components\Radio::make('r_310')
                                                     ->required()
                                                     ->visible(fn(Get $get) => $get('r_307') != null)
@@ -628,7 +646,9 @@ class QuestionnaireResource extends Resource
                                                             ->visible(fn(Get $get) => $get('r_308_a_tambah') == '99')
                                                             ->required()
                                                             ->maxLength(255),
-                                                    ]),
+                                                    ])
+                                                    ->addActionLabel('Tambah Pekerjaan')
+                                                    ->columnSpanFull(),
                                                 Forms\Components\Repeater::make("Buruh Sektor Non Pertanian")
                                                     ->visible(fn(Get $get) => $get('r_307_tambah') == '2')
                                                     ->schema([
@@ -657,6 +677,8 @@ class QuestionnaireResource extends Resource
                                                             ->required()
                                                             ->maxLength(255),
                                                     ])
+                                                    ->addActionLabel('Tambah Pekerjaan')
+                                                    ->columnSpanFull()
                                             ]),
                                         Forms\Components\Fieldset::make('Pekerja Bebas')
                                             ->visible(fn(Get $get) => $get('r_301_usaha_buruh_pekerjaBebas') == '3')
@@ -690,7 +712,9 @@ class QuestionnaireResource extends Resource
                                                             ->visible(fn(Get $get) => $get('r_312_a') == '99')
                                                             ->required()
                                                             ->maxLength(255),
-                                                    ]),
+                                                    ])
+                                                    ->addActionLabel('Tambah Pekerjaan')
+                                                    ->columnSpanFull(),
                                                 Forms\Components\Repeater::make("Buruh Sektor Non Pertanian")
                                                     ->visible(fn(Get $get) => $get('r_311') == '2')
                                                     ->schema([
@@ -713,7 +737,9 @@ class QuestionnaireResource extends Resource
                                                             ->visible(fn(Get $get) => $get('r_313_a') == '99')
                                                             ->required()
                                                             ->maxLength(255),
-                                                    ]),
+                                                    ])
+                                                    ->addActionLabel('Tambah Pekerjaan')
+                                                    ->columnSpanFull(),
                                                 Forms\Components\Radio::make('r_314')
                                                     ->required()
                                                     ->visible(fn(Get $get) => $get('r_311') != null)
@@ -753,7 +779,9 @@ class QuestionnaireResource extends Resource
                                                             ->visible(fn(Get $get) => $get('r_312_a_tambah') == '99')
                                                             ->required()
                                                             ->maxLength(255),
-                                                    ]),
+                                                    ])
+                                                    ->addActionLabel('Tambah Pekerjaan')
+                                                    ->columnSpanFull(),
                                                 Forms\Components\Repeater::make("Buruh Sektor Non Pertanian")
                                                     ->visible(fn(Get $get) => $get('r_311_tambah') == '2')
                                                     ->schema([
@@ -777,10 +805,12 @@ class QuestionnaireResource extends Resource
                                                             ->required()
                                                             ->maxLength(255),
                                                     ])
+                                                    ->addActionLabel('Tambah Pekerjaan')
+                                                    ->columnSpanFull()
                                             ]),
                                     ])
                             ])
-
+                            ->addActionLabel('Tambah Anggota Keluarga')
                             ->columns(2)
                             ->columnSpanFull(),
                         Forms\Components\Textarea::make('r_401')
@@ -797,6 +827,17 @@ class QuestionnaireResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('r_102')
                     ->label(__('Nomor KK'))
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('r_200')
+                    ->label(__('Nama Kepala Keluarga'))
+                    ->getStateUsing(function ($record) {
+                        if (!$record->r_200) return null;
+
+                        return collect($record->r_200)
+                            ->where('r_203', '1')
+                            ->pluck('r_201');
+                    })
+                    ->default('Tidak Ada Kepala Keluarga')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('r_103')
                     ->label(__('Status KK'))

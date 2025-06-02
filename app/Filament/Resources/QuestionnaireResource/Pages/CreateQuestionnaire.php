@@ -3,7 +3,7 @@
 namespace App\Filament\Resources\QuestionnaireResource\Pages;
 
 use App\Filament\Resources\QuestionnaireResource;
-use Filament\Actions;
+use Filament\Actions\CreateAction;
 use Filament\Resources\Pages\CreateRecord;
 
 class CreateQuestionnaire extends CreateRecord
@@ -18,5 +18,19 @@ class CreateQuestionnaire extends CreateRecord
     public function getRedirectUrl(): string
     {
         return $this->getResource()::getUrl('index');
+    }
+    protected function getFormActions(): array
+    {
+        return [
+            // $this->getCreateFormAction(),
+            $this->getCreateFormAction()
+                ->label("Submit Pendataan")
+                ->icon('heroicon-s-check-circle')
+                ->color('success'),
+            $this->getCancelFormAction()
+                ->label('Batal')
+                ->icon('heroicon-o-x-circle')
+                ->color('danger'),
+        ];
     }
 }

@@ -16,7 +16,8 @@ class ListQuestionnaires extends ListRecords
     {
         return [
             Actions\CreateAction::make()
-                ->label("Buat Pendataan Baru"),
+                ->label("Buat Pendataan Baru")
+                ->icon('heroicon-s-plus'),
         ];
     }
 }
