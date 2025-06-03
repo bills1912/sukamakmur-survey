@@ -18,8 +18,8 @@ class StatsOverview extends BaseWidget
                 ->descriptionIcon('heroicon-m-arrow-trending-up')
                 ->chart([7, 2, 10, 3, 15, 4, 17])
                 ->color('success'),
-            Stat::make('Jumlah Penduduk', '1000')
-                ->description('Banyaknya penduduk yang ada di Desa Suka Makmur')
+            Stat::make('Jumlah KK yang Telah Didata', Questionnaire::distinct()->count('r_102'))
+                ->description('Banyaknya KK yang telah didata')
                 ->descriptionIcon('heroicon-m-arrow-trending-up')
                 ->chart([7, 2, 10, 3, 15, 4, 17])
                 ->color('warning'),
