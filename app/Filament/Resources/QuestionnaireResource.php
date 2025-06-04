@@ -224,590 +224,594 @@ class QuestionnaireResource extends Resource
                                 Forms\Components\Section::make('Pekerjaan')
                                     ->visible(fn(Get $get) => $get('r_210') == '1' && $get('r_207_usia') >= 15 && $get('r_300_pekerjaan') == '2')
                                     ->schema([
-                                        Forms\Components\Radio::make('r_301_usaha_buruh_pekerjaBebas')
-                                            ->required()
-                                            ->live()
-                                            ->label(__('Bekerja Sebagai Apa?'))
-                                            ->options([
-                                                '1' => 'Berusaha/Pemilik Usaha',
-                                                '2' => 'Buruh/Pegawai',
-                                                '3' => 'Pekerja Bebas',
-                                            ]),
-                                        Forms\Components\Fieldset::make('Usaha')
-                                            ->visible(fn(Get $get) => $get('r_301_usaha_buruh_pekerjaBebas') == '1')
+                                        Forms\Components\Repeater::make('Tambahkan Pekerjaan')
                                             ->schema([
-                                                Forms\Components\Select::make("r_301")
-                                                    ->label(__('Di Sektor Apa Usaha Utama '))
+                                                Forms\Components\Radio::make('r_301_usaha_buruh_pekerjaBebas')
                                                     ->required()
                                                     ->live()
+                                                    ->label(__('Bekerja Sebagai Apa?'))
                                                     ->options([
-                                                        '1' => 'Pertanian Padi/Palawija',
-                                                        '2' => 'Perikanan',
-                                                        '3' => 'Peternakan',
-                                                        '4' => 'Lainnya',
-                                                    ])
-                                                    ->native(false)
-                                                    ->searchable()
-                                                    ->columnSpanFull(),
-                                                Forms\Components\Repeater::make('Sektor Pertanian Tanaman Padi/Palawija')
-                                                    ->visible(fn(Get $get) => $get('r_301') == '1')
+                                                        '1' => 'Berusaha/Pemilik Usaha',
+                                                        '2' => 'Buruh/Pegawai',
+                                                        '3' => 'Pekerja Bebas',
+                                                    ]),
+                                                Forms\Components\Fieldset::make('Usaha')
+                                                    ->visible(fn(Get $get) => $get('r_301_usaha_buruh_pekerjaBebas') == '1')
                                                     ->schema([
-                                                        Forms\Components\TextInput::make('r_302_a')
-                                                            ->label(__('Komoditas yang Diusahakan'))
+                                                        Forms\Components\Select::make("r_301")
+                                                            ->label(__('Di Sektor Apa Usaha Utama '))
                                                             ->required()
-                                                            ->maxLength(255),
-                                                        Forms\Components\Radio::make('r_302_b')
-                                                            ->label(__('Jenis Lahan'))
+                                                            ->live()
                                                             ->options([
-                                                                '1' => 'Sawah',
-                                                                '2' => 'Kebun',
-                                                                '3' => 'Lahan Kering',
-                                                            ])
-                                                            ->required(),
-                                                        Forms\Components\Radio::make('r_302_c')
-                                                            ->label(__('Status Kepemilikan Lahan'))
-                                                            ->options([
-                                                                '1' => 'Milik Sendiri',
-                                                                '2' => 'Sewa',
-                                                                '3' => 'Bebas Sewa',
-                                                            ])
-                                                            ->required(),
-                                                        Forms\Components\TextInput::make('r_302_d')
-                                                            ->label(__('Luas Lahan yang Diusahakan (m2)'))
-                                                            ->numeric()
-                                                            ->required(),
-                                                        Forms\Components\TextInput::make('r_302_e')
-                                                            ->label(__('Jumlah Produksi Padi/Palawija dalam Setahun Terakhir (Kg)'))
-                                                            ->required()
-                                                            ->numeric(),
-                                                        Forms\Components\TextInput::make('r_302_f')
-                                                            ->label(__('Nilai Produksi dalam Setahun Terakhir (Rp)'))
-                                                            ->required()
-                                                            ->numeric(),
-                                                        Forms\Components\TextInput::make('r_302_g')
-                                                            ->label(__('Penghasilan Bersih dalam Setahun Terakhir (Rp)'))
-                                                            ->required()
-                                                            ->numeric(),
-                                                    ])
-                                                    ->addActionLabel('Tambah Pekerjaan')
-                                                    ->columnSpanFull(),
-                                                Forms\Components\Repeater::make('Perikanan')
-                                                    ->visible(fn(Get $get) => $get('r_301') == '2')
-                                                    ->schema([
-                                                        Forms\Components\TextInput::make('r_303_a')
-                                                            ->label(__('Luas Lahan Budidaya'))
-                                                            ->required()
-                                                            ->numeric(255),
-                                                        Forms\Components\Select::make('r_303_b')
-                                                            ->label(__('Jenis Ikan yang Diusahakan Setahun Terakhir'))
-                                                            ->options([
-                                                                '1' => 'Ikan Lele',
-                                                                '2' => 'Ikan Nila',
-                                                                '3' => 'Ikan Gurame',
-                                                                '4' => 'Ikan Patin',
-                                                                '5' => 'Ikan Mas',
-                                                                '6' => 'Lainnya',
+                                                                '1' => 'Pertanian Padi/Palawija',
+                                                                '2' => 'Perikanan',
+                                                                '3' => 'Peternakan',
+                                                                '4' => 'Lainnya',
                                                             ])
                                                             ->native(false)
                                                             ->searchable()
-                                                            ->required(),
-                                                        Forms\Components\TextInput::make('r_303_c')
-                                                            ->label(__('Jumlah Produksi Hasil Perikanan dalam Setahun Terakhir (Kg)'))
-                                                            ->numeric()
-                                                            ->required(),
-                                                        Forms\Components\TextInput::make('r_303_d')
-                                                            ->label(__('Nilai Produksi dalam Setahun Terakhir (Rp)'))
-                                                            ->numeric()
-                                                            ->required(),
-                                                        Forms\Components\TextInput::make('r_303_e')
-                                                            ->label(__('Penghasilan Bersih dalam Setahun Terakhir (Rp)'))
-                                                            ->numeric()
-                                                            ->required(),
-                                                    ])
-                                                    ->addActionLabel('Tambah Pekerjaan')
-                                                    ->columnSpanFull(),
-                                                Forms\Components\Repeater::make('Peternakan')
-                                                    ->visible(fn(Get $get) => $get('r_301') == '3')
-                                                    ->schema([
-                                                        Forms\Components\Select::make('r_304_a')
-                                                            ->required()
-                                                            ->native(false)
-                                                            ->label(__('Jenis Ternak'))
-                                                            ->options([
-                                                                '1' => 'Sapi',
-                                                                '2' => 'Kambing',
-                                                                '3' => 'Ayam',
-                                                                '4' => 'Bebek',
-                                                                '5' => 'Lainnya',
-                                                            ]),
-                                                        Forms\Components\TextInput::make('r_304_b')
-                                                            ->numeric()
-                                                            ->label(__('Jumlah Ternak'))
-                                                            ->required(),
-                                                        Forms\Components\TextInput::make('r_304_c')
-                                                            ->numeric()
-                                                            ->label(__('Nilai Produksi dalam Setahun Terakhir (Rp)'))
-                                                            ->required(),
-                                                        Forms\Components\TextInput::make('r_304_d')
-                                                            ->numeric()
-                                                            ->label(__('Penghasilan Bersih dalam Setahun Terakhir (Rp)'))
-                                                            ->required(),
-                                                    ])
-                                                    ->addActionLabel('Tambah Pekerjaan')
-                                                    ->columnSpanFull(),
-                                                Forms\Components\Repeater::make('Lainnya')
-                                                    ->visible(fn(Get $get) => $get('r_301') == '4')
-                                                    ->schema([
-                                                        Forms\Components\TextInput::make('r_305_a')
-                                                            ->maxLength(255)
-                                                            ->label(__('Nama Usaha'))
-                                                            ->required(),
-                                                        Forms\Components\TextInput::make('r_305_b')
-                                                            ->maxLength(255)
-                                                            ->label(__('Produk Usaha'))
-                                                            ->required(),
-                                                        Forms\Components\Textarea::make('r_305_c')
-                                                            ->maxLength(255)
-                                                            ->label(__('Alamat Tempat Usaha'))
-                                                            ->required(),
-                                                        Forms\Components\TextInput::make('r_305_d')
-                                                            ->numeric()
-                                                            ->label(__('Jumlah Pekerja'))
-                                                            ->required(),
-                                                        Forms\Components\TextInput::make('r_305_e')
-                                                            ->numeric()
-                                                            ->label(__('Rata-Rata Omset Usaha per Bulan (Rp)'))
-                                                            ->required(),
-                                                        Forms\Components\TextInput::make('r_305_f')
-                                                            ->numeric()
-                                                            ->label(__('Rata-Rata Penghasilan Bersih per Bulan (Rp)'))
-                                                            ->required(),
-                                                    ])
-                                                    ->addActionLabel('Tambah Pekerjaan')
-                                                    ->columnSpanFull(),
-                                                Forms\Components\Radio::make("r_306")
-                                                    ->label(__('Apakah Ada Usaha Lain?'))
-                                                    ->visible(fn(Get $get) => $get('r_301') != null)
-                                                    ->live()
-                                                    ->required()
-                                                    ->options([
-                                                        '1' => 'Ya',
-                                                        '2' => 'Tidak',
-                                                    ]),
-                                                Forms\Components\Select::make("r_301_tambah")
-                                                    ->label(__('Di Sektor Apa Pekerjaan Tambahan Anda'))
-                                                    ->visible(fn(Get $get) => $get('r_306') == '1')
-                                                    ->required()
-                                                    ->live()
-                                                    ->options([
-                                                        '1' => 'Pertanian Padi/Palawija',
-                                                        '2' => 'Perikanan',
-                                                        '3' => 'Peternakan',
-                                                        '4' => 'Lainnya',
-                                                    ])
-                                                    ->native(false)
-                                                    ->searchable(),
-                                                Forms\Components\Repeater::make('Sektor Pertanian Tanaman Padi/Palawija')
-                                                    ->visible(fn(Get $get) => $get('r_301_tambah') == '1')
-                                                    ->schema([
-                                                        Forms\Components\TextInput::make('r_302_a_tambah')
-                                                            ->label(__('Komoditas yang Diusahakan'))
-                                                            ->required()
-                                                            ->maxLength(255),
-                                                        Forms\Components\Radio::make('r_302_b_tambah')
-                                                            ->label(__('Jenis Lahan'))
-                                                            ->options([
-                                                                '1' => 'Sawah',
-                                                                '2' => 'Kebun',
-                                                                '3' => 'Lahan Kering',
+                                                            ->columnSpanFull(),
+                                                        Forms\Components\Repeater::make('Sektor Pertanian Tanaman Padi/Palawija')
+                                                            ->visible(fn(Get $get) => $get('r_301') == '1')
+                                                            ->schema([
+                                                                Forms\Components\TextInput::make('r_302_a')
+                                                                    ->label(__('Komoditas yang Diusahakan'))
+                                                                    ->required()
+                                                                    ->maxLength(255),
+                                                                Forms\Components\Radio::make('r_302_b')
+                                                                    ->label(__('Jenis Lahan'))
+                                                                    ->options([
+                                                                        '1' => 'Sawah',
+                                                                        '2' => 'Kebun',
+                                                                        '3' => 'Lahan Kering',
+                                                                    ])
+                                                                    ->required(),
+                                                                Forms\Components\Radio::make('r_302_c')
+                                                                    ->label(__('Status Kepemilikan Lahan'))
+                                                                    ->options([
+                                                                        '1' => 'Milik Sendiri',
+                                                                        '2' => 'Sewa',
+                                                                        '3' => 'Bebas Sewa',
+                                                                    ])
+                                                                    ->required(),
+                                                                Forms\Components\TextInput::make('r_302_d')
+                                                                    ->label(__('Luas Lahan yang Diusahakan (m2)'))
+                                                                    ->numeric()
+                                                                    ->required(),
+                                                                Forms\Components\TextInput::make('r_302_e')
+                                                                    ->label(__('Jumlah Produksi Padi/Palawija dalam Setahun Terakhir (Kg)'))
+                                                                    ->required()
+                                                                    ->numeric(),
+                                                                Forms\Components\TextInput::make('r_302_f')
+                                                                    ->label(__('Nilai Produksi dalam Setahun Terakhir (Rp)'))
+                                                                    ->required()
+                                                                    ->numeric(),
+                                                                Forms\Components\TextInput::make('r_302_g')
+                                                                    ->label(__('Penghasilan Bersih dalam Setahun Terakhir (Rp)'))
+                                                                    ->required()
+                                                                    ->numeric(),
                                                             ])
-                                                            ->required(),
-                                                        Forms\Components\Radio::make('r_302_c_tambah')
-                                                            ->label(__('Status Kepemilikan Lahan'))
-                                                            ->options([
-                                                                '1' => 'Milik Sendiri',
-                                                                '2' => 'Sewa',
-                                                                '3' => 'Bebas Sewa',
+                                                            ->addActionLabel('Tambah Pekerjaan')
+                                                            ->columnSpanFull(),
+                                                        Forms\Components\Repeater::make('Perikanan')
+                                                            ->visible(fn(Get $get) => $get('r_301') == '2')
+                                                            ->schema([
+                                                                Forms\Components\TextInput::make('r_303_a')
+                                                                    ->label(__('Luas Lahan Budidaya'))
+                                                                    ->required()
+                                                                    ->numeric(255),
+                                                                Forms\Components\Select::make('r_303_b')
+                                                                    ->label(__('Jenis Ikan yang Diusahakan Setahun Terakhir'))
+                                                                    ->options([
+                                                                        '1' => 'Ikan Lele',
+                                                                        '2' => 'Ikan Nila',
+                                                                        '3' => 'Ikan Gurame',
+                                                                        '4' => 'Ikan Patin',
+                                                                        '5' => 'Ikan Mas',
+                                                                        '6' => 'Lainnya',
+                                                                    ])
+                                                                    ->native(false)
+                                                                    ->searchable()
+                                                                    ->required(),
+                                                                Forms\Components\TextInput::make('r_303_c')
+                                                                    ->label(__('Jumlah Produksi Hasil Perikanan dalam Setahun Terakhir (Kg)'))
+                                                                    ->numeric()
+                                                                    ->required(),
+                                                                Forms\Components\TextInput::make('r_303_d')
+                                                                    ->label(__('Nilai Produksi dalam Setahun Terakhir (Rp)'))
+                                                                    ->numeric()
+                                                                    ->required(),
+                                                                Forms\Components\TextInput::make('r_303_e')
+                                                                    ->label(__('Penghasilan Bersih dalam Setahun Terakhir (Rp)'))
+                                                                    ->numeric()
+                                                                    ->required(),
                                                             ])
-                                                            ->required(),
-                                                        Forms\Components\TextInput::make('r_302_d_tambah')
-                                                            ->label(__('Luas Lahan yang Diusahakan (m2)'))
-                                                            ->numeric()
-                                                            ->required(),
-                                                        Forms\Components\TextInput::make('r_302_e_tambah')
-                                                            ->label(__('Jumlah Produksi Padi/Palawija dalam Setahun Terakhir (Kg)'))
-                                                            ->required()
-                                                            ->numeric(),
-                                                        Forms\Components\TextInput::make('r_302_f_tambah')
-                                                            ->label(__('Nilai Produksi dalam Setahun Terakhir (Rp)'))
-                                                            ->required()
-                                                            ->numeric(),
-                                                        Forms\Components\TextInput::make('r_302_g_tambah')
-                                                            ->label(__('Penghasilan Bersih dalam Setahun Terakhir (Rp)'))
-                                                            ->required()
-                                                            ->numeric(),
-                                                    ])
-                                                    ->addActionLabel('Tambah Pekerjaan')
-                                                    ->columnSpanFull(),
-                                                Forms\Components\Repeater::make('Perikanan')
-                                                    ->visible(fn(Get $get) => $get('r_301_tambah') == '2')
-                                                    ->schema([
-                                                        Forms\Components\TextInput::make('r_303_a_tambah')
-                                                            ->label(__('Luas Lahan Budidaya'))
-                                                            ->required()
-                                                            ->numeric(255),
-                                                        Forms\Components\Select::make('r_303_b_tambah')
-                                                            ->label(__('Jenis Ikan yang Diusahakan Setahun Terakhir'))
-                                                            ->options([
-                                                                '1' => 'Ikan Lele',
-                                                                '2' => 'Ikan Nila',
-                                                                '3' => 'Ikan Gurame',
-                                                                '4' => 'Ikan Patin',
-                                                                '5' => 'Ikan Mas',
-                                                                '6' => 'Lainnya',
+                                                            ->addActionLabel('Tambah Pekerjaan')
+                                                            ->columnSpanFull(),
+                                                        Forms\Components\Repeater::make('Peternakan')
+                                                            ->visible(fn(Get $get) => $get('r_301') == '3')
+                                                            ->schema([
+                                                                Forms\Components\Select::make('r_304_a')
+                                                                    ->required()
+                                                                    ->native(false)
+                                                                    ->label(__('Jenis Ternak'))
+                                                                    ->options([
+                                                                        '1' => 'Sapi',
+                                                                        '2' => 'Kambing',
+                                                                        '3' => 'Ayam',
+                                                                        '4' => 'Bebek',
+                                                                        '5' => 'Lainnya',
+                                                                    ]),
+                                                                Forms\Components\TextInput::make('r_304_b')
+                                                                    ->numeric()
+                                                                    ->label(__('Jumlah Ternak'))
+                                                                    ->required(),
+                                                                Forms\Components\TextInput::make('r_304_c')
+                                                                    ->numeric()
+                                                                    ->label(__('Nilai Produksi dalam Setahun Terakhir (Rp)'))
+                                                                    ->required(),
+                                                                Forms\Components\TextInput::make('r_304_d')
+                                                                    ->numeric()
+                                                                    ->label(__('Penghasilan Bersih dalam Setahun Terakhir (Rp)'))
+                                                                    ->required(),
                                                             ])
-                                                            ->native(false)
-                                                            ->searchable()
-                                                            ->required(),
-                                                        Forms\Components\TextInput::make('r_303_c_tambah')
-                                                            ->label(__('Jumlah Produksi Hasil Perikanan dalam Setahun Terakhir (Kg)'))
-                                                            ->numeric()
-                                                            ->required(),
-                                                        Forms\Components\TextInput::make('r_303_d_tambah')
-                                                            ->label(__('Nilai Produksi dalam Setahun Terakhir (Rp)'))
-                                                            ->numeric()
-                                                            ->required(),
-                                                        Forms\Components\TextInput::make('r_303_e_tambah')
-                                                            ->label(__('Penghasilan Bersih dalam Setahun Terakhir (Rp)'))
-                                                            ->numeric()
-                                                            ->required(),
-                                                    ])
-                                                    ->addActionLabel('Tambah Pekerjaan')
-                                                    ->columnSpanFull(),
-                                                Forms\Components\Repeater::make('Peternakan')
-                                                    ->visible(fn(Get $get) => $get('r_301_tambah') == '3')
-                                                    ->schema([
-                                                        Forms\Components\Select::make('r_304_a_tambah')
-                                                            ->required()
-                                                            ->label(__('Jenis Ternak'))
-                                                            ->options([
-                                                                '1' => 'Sapi',
-                                                                '2' => 'Kambing',
-                                                                '3' => 'Ayam',
-                                                                '4' => 'Bebek',
-                                                                '5' => 'Lainnya',
-                                                            ]),
-                                                        Forms\Components\TextInput::make('r_304_b_tambah')
-                                                            ->numeric()
-                                                            ->label(__('Jumlah Ternak'))
-                                                            ->required(),
-                                                        Forms\Components\TextInput::make('r_304_c_tambah')
-                                                            ->numeric()
-                                                            ->label(__('Nilai Produksi dalam Setahun Terakhir (Rp)'))
-                                                            ->required(),
-                                                        Forms\Components\TextInput::make('r_304_d_tambah')
-                                                            ->numeric()
-                                                            ->label(__('Penghasilan Bersih dalam Setahun Terakhir (Rp)'))
-                                                            ->required(),
-                                                    ])
-                                                    ->addActionLabel('Tambah Pekerjaan')
-                                                    ->columnSpanFull(),
-                                                Forms\Components\Repeater::make('Lainnya')
-                                                    ->visible(fn(Get $get) => $get('r_301_tambah') == '4')
-                                                    ->schema([
-                                                        Forms\Components\TextInput::make('r_305_a_tambah')
-                                                            ->maxLength(255)
-                                                            ->label(__('Nama Pemilik Usaha'))
-                                                            ->required(),
-                                                        Forms\Components\TextInput::make('r_305_b_tambah')
-                                                            ->maxLength(255)
-                                                            ->label(__('Produk Usaha'))
-                                                            ->required(),
-                                                        Forms\Components\Textarea::make('r_305_c_tambah')
-                                                            ->maxLength(255)
-                                                            ->label(__('Alamat Tempat Usaha'))
-                                                            ->required(),
-                                                        Forms\Components\TextInput::make('r_305_d_tambah')
-                                                            ->numeric()
-                                                            ->label(__('Jumlah Pekerja'))
-                                                            ->required(),
-                                                        Forms\Components\TextInput::make('r_305_e_tambah')
-                                                            ->numeric()
-                                                            ->label(__('Rata-Rata Omset Usaha per Bulan (Rp)'))
-                                                            ->required(),
-                                                        Forms\Components\TextInput::make('r_305_f_tambah')
-                                                            ->numeric()
-                                                            ->label(__('Rata-Rata Penghasilan Bersih per Bulan (Rp)'))
-                                                            ->required(),
-                                                    ])
-                                                    ->addActionLabel('Tambah Pekerjaan')
-                                                    ->columnSpanFull(),
-                                            ]),
-                                        Forms\Components\Fieldset::make('Buruh/Pegawai')
-                                            ->visible(fn(Get $get) => $get('r_301_usaha_buruh_pekerjaBebas') == '2')
-                                            ->schema([
-                                                Forms\Components\Radio::make('r_307')
-                                                    ->required()
-                                                    ->live()
-                                                    ->label(__('Pekerjaan Utama di Sektor Mana?'))
-                                                    ->options([
-                                                        '1' => 'Pertanian',
-                                                        '2' => 'Non Pertanian',
-                                                    ]),
-                                                Forms\Components\Repeater::make('Buruh/Pegawai Sektor Pertanian')
-                                                    ->visible(fn(Get $get) => $get('r_307') == '1')
-                                                    ->schema([
-                                                        Forms\Components\Select::make('r_308_a')
-                                                            ->label(__('Bekerja Sebagai'))
+                                                            ->addActionLabel('Tambah Pekerjaan')
+                                                            ->columnSpanFull(),
+                                                        Forms\Components\Repeater::make('Lainnya')
+                                                            ->visible(fn(Get $get) => $get('r_301') == '4')
+                                                            ->schema([
+                                                                Forms\Components\TextInput::make('r_305_a')
+                                                                    ->maxLength(255)
+                                                                    ->label(__('Nama Usaha'))
+                                                                    ->required(),
+                                                                Forms\Components\TextInput::make('r_305_b')
+                                                                    ->maxLength(255)
+                                                                    ->label(__('Produk Usaha'))
+                                                                    ->required(),
+                                                                Forms\Components\Textarea::make('r_305_c')
+                                                                    ->maxLength(255)
+                                                                    ->label(__('Alamat Tempat Usaha'))
+                                                                    ->required(),
+                                                                Forms\Components\TextInput::make('r_305_d')
+                                                                    ->numeric()
+                                                                    ->label(__('Jumlah Pekerja'))
+                                                                    ->required(),
+                                                                Forms\Components\TextInput::make('r_305_e')
+                                                                    ->numeric()
+                                                                    ->label(__('Rata-Rata Omset Usaha per Bulan (Rp)'))
+                                                                    ->required(),
+                                                                Forms\Components\TextInput::make('r_305_f')
+                                                                    ->numeric()
+                                                                    ->label(__('Rata-Rata Penghasilan Bersih per Bulan (Rp)'))
+                                                                    ->required(),
+                                                            ])
+                                                            ->addActionLabel('Tambah Pekerjaan')
+                                                            ->columnSpanFull(),
+                                                        Forms\Components\Radio::make("r_306")
+                                                            ->label(__('Apakah Ada Usaha Lain?'))
+                                                            ->visible(fn(Get $get) => $get('r_301') != null)
                                                             ->live()
                                                             ->required()
-                                                            ->native(false)
-                                                            ->searchable()
                                                             ->options([
-                                                                '1' => 'Petani',
-                                                                '2' => 'Peternak',
-                                                                '3' => 'Nelayan',
-                                                                '99' => 'Lainnya'
+                                                                '1' => 'Ya',
+                                                                '2' => 'Tidak',
                                                             ]),
-                                                        Forms\Components\TextInput::make('r_308_b')
-                                                            ->label(__('Pekerjaan Sektor Pertanian Lainnya'))
-                                                            ->visible(fn(Get $get) => $get('r_308_a') == '99')
+                                                        Forms\Components\Select::make("r_301_tambah")
+                                                            ->label(__('Di Sektor Apa Pekerjaan Tambahan Anda'))
+                                                            ->visible(fn(Get $get) => $get('r_306') == '1')
                                                             ->required()
-                                                            ->maxLength(255),
-                                                    ])
-                                                    ->addActionLabel('Tambah Pekerjaan')
-                                                    ->columnSpanFull(),
-                                                Forms\Components\Repeater::make('Buruh/Pegawai Sektor Non Pertanian')
-                                                    ->visible(fn(Get $get) => $get('r_307') == '2')
-                                                    ->schema([
-                                                        Forms\Components\Select::make('r_309_a')
-                                                            ->label(__('Bekerja Sebagai'))
                                                             ->live()
-                                                            ->required()
-                                                            ->native(false)
-                                                            ->searchable()
                                                             ->options([
-                                                                '1' => 'Guru',
-                                                                '2' => 'Pegawai BUMN/BUMD',
-                                                                '3' => 'Aparat Desa/Kelurahan/Kecamatan',
-                                                                '4' => 'TNI/Polri',
-                                                                '5' => 'PNS',
-                                                                '6' => 'Bagian IT',
-                                                                '7' => 'Dokter',
-                                                                '8' => 'Perawat',
-                                                                '9' => 'Bidan',
-                                                                '10' => 'Buruh Pabrik',
-                                                                '99' => 'Lainnya'
-                                                            ]),
-                                                        Forms\Components\TextInput::make('r_309_b')
-                                                            ->label(__('Pekerjaan Sektor Pertanian Lainnya'))
-                                                            ->visible(fn(Get $get) => $get('r_309_a') == '99')
-                                                            ->required()
-                                                            ->maxLength(255),
-                                                    ])
-                                                    ->addActionLabel('Tambah Pekerjaan')
-                                                    ->columnSpanFull(),
-                                                Forms\Components\Radio::make('r_310')
-                                                    ->required()
-                                                    ->visible(fn(Get $get) => $get('r_307') != null)
-                                                    ->live()
-                                                    ->label(__('Apakah Ada Pekerjaan Tambahan?'))
-                                                    ->options([
-                                                        '1' => 'Ada',
-                                                        '2' => 'Tidak Ada',
+                                                                '1' => 'Pertanian Padi/Palawija',
+                                                                '2' => 'Perikanan',
+                                                                '3' => 'Peternakan',
+                                                                '4' => 'Lainnya',
+                                                            ])
+                                                            ->native(false)
+                                                            ->searchable(),
+                                                        Forms\Components\Repeater::make('Sektor Pertanian Tanaman Padi/Palawija')
+                                                            ->visible(fn(Get $get) => $get('r_301_tambah') == '1')
+                                                            ->schema([
+                                                                Forms\Components\TextInput::make('r_302_a_tambah')
+                                                                    ->label(__('Komoditas yang Diusahakan'))
+                                                                    ->required()
+                                                                    ->maxLength(255),
+                                                                Forms\Components\Radio::make('r_302_b_tambah')
+                                                                    ->label(__('Jenis Lahan'))
+                                                                    ->options([
+                                                                        '1' => 'Sawah',
+                                                                        '2' => 'Kebun',
+                                                                        '3' => 'Lahan Kering',
+                                                                    ])
+                                                                    ->required(),
+                                                                Forms\Components\Radio::make('r_302_c_tambah')
+                                                                    ->label(__('Status Kepemilikan Lahan'))
+                                                                    ->options([
+                                                                        '1' => 'Milik Sendiri',
+                                                                        '2' => 'Sewa',
+                                                                        '3' => 'Bebas Sewa',
+                                                                    ])
+                                                                    ->required(),
+                                                                Forms\Components\TextInput::make('r_302_d_tambah')
+                                                                    ->label(__('Luas Lahan yang Diusahakan (m2)'))
+                                                                    ->numeric()
+                                                                    ->required(),
+                                                                Forms\Components\TextInput::make('r_302_e_tambah')
+                                                                    ->label(__('Jumlah Produksi Padi/Palawija dalam Setahun Terakhir (Kg)'))
+                                                                    ->required()
+                                                                    ->numeric(),
+                                                                Forms\Components\TextInput::make('r_302_f_tambah')
+                                                                    ->label(__('Nilai Produksi dalam Setahun Terakhir (Rp)'))
+                                                                    ->required()
+                                                                    ->numeric(),
+                                                                Forms\Components\TextInput::make('r_302_g_tambah')
+                                                                    ->label(__('Penghasilan Bersih dalam Setahun Terakhir (Rp)'))
+                                                                    ->required()
+                                                                    ->numeric(),
+                                                            ])
+                                                            ->addActionLabel('Tambah Pekerjaan')
+                                                            ->columnSpanFull(),
+                                                        Forms\Components\Repeater::make('Perikanan')
+                                                            ->visible(fn(Get $get) => $get('r_301_tambah') == '2')
+                                                            ->schema([
+                                                                Forms\Components\TextInput::make('r_303_a_tambah')
+                                                                    ->label(__('Luas Lahan Budidaya'))
+                                                                    ->required()
+                                                                    ->numeric(255),
+                                                                Forms\Components\Select::make('r_303_b_tambah')
+                                                                    ->label(__('Jenis Ikan yang Diusahakan Setahun Terakhir'))
+                                                                    ->options([
+                                                                        '1' => 'Ikan Lele',
+                                                                        '2' => 'Ikan Nila',
+                                                                        '3' => 'Ikan Gurame',
+                                                                        '4' => 'Ikan Patin',
+                                                                        '5' => 'Ikan Mas',
+                                                                        '6' => 'Lainnya',
+                                                                    ])
+                                                                    ->native(false)
+                                                                    ->searchable()
+                                                                    ->required(),
+                                                                Forms\Components\TextInput::make('r_303_c_tambah')
+                                                                    ->label(__('Jumlah Produksi Hasil Perikanan dalam Setahun Terakhir (Kg)'))
+                                                                    ->numeric()
+                                                                    ->required(),
+                                                                Forms\Components\TextInput::make('r_303_d_tambah')
+                                                                    ->label(__('Nilai Produksi dalam Setahun Terakhir (Rp)'))
+                                                                    ->numeric()
+                                                                    ->required(),
+                                                                Forms\Components\TextInput::make('r_303_e_tambah')
+                                                                    ->label(__('Penghasilan Bersih dalam Setahun Terakhir (Rp)'))
+                                                                    ->numeric()
+                                                                    ->required(),
+                                                            ])
+                                                            ->addActionLabel('Tambah Pekerjaan')
+                                                            ->columnSpanFull(),
+                                                        Forms\Components\Repeater::make('Peternakan')
+                                                            ->visible(fn(Get $get) => $get('r_301_tambah') == '3')
+                                                            ->schema([
+                                                                Forms\Components\Select::make('r_304_a_tambah')
+                                                                    ->required()
+                                                                    ->label(__('Jenis Ternak'))
+                                                                    ->options([
+                                                                        '1' => 'Sapi',
+                                                                        '2' => 'Kambing',
+                                                                        '3' => 'Ayam',
+                                                                        '4' => 'Bebek',
+                                                                        '5' => 'Lainnya',
+                                                                    ]),
+                                                                Forms\Components\TextInput::make('r_304_b_tambah')
+                                                                    ->numeric()
+                                                                    ->label(__('Jumlah Ternak'))
+                                                                    ->required(),
+                                                                Forms\Components\TextInput::make('r_304_c_tambah')
+                                                                    ->numeric()
+                                                                    ->label(__('Nilai Produksi dalam Setahun Terakhir (Rp)'))
+                                                                    ->required(),
+                                                                Forms\Components\TextInput::make('r_304_d_tambah')
+                                                                    ->numeric()
+                                                                    ->label(__('Penghasilan Bersih dalam Setahun Terakhir (Rp)'))
+                                                                    ->required(),
+                                                            ])
+                                                            ->addActionLabel('Tambah Pekerjaan')
+                                                            ->columnSpanFull(),
+                                                        Forms\Components\Repeater::make('Lainnya')
+                                                            ->visible(fn(Get $get) => $get('r_301_tambah') == '4')
+                                                            ->schema([
+                                                                Forms\Components\TextInput::make('r_305_a_tambah')
+                                                                    ->maxLength(255)
+                                                                    ->label(__('Nama Pemilik Usaha'))
+                                                                    ->required(),
+                                                                Forms\Components\TextInput::make('r_305_b_tambah')
+                                                                    ->maxLength(255)
+                                                                    ->label(__('Produk Usaha'))
+                                                                    ->required(),
+                                                                Forms\Components\Textarea::make('r_305_c_tambah')
+                                                                    ->maxLength(255)
+                                                                    ->label(__('Alamat Tempat Usaha'))
+                                                                    ->required(),
+                                                                Forms\Components\TextInput::make('r_305_d_tambah')
+                                                                    ->numeric()
+                                                                    ->label(__('Jumlah Pekerja'))
+                                                                    ->required(),
+                                                                Forms\Components\TextInput::make('r_305_e_tambah')
+                                                                    ->numeric()
+                                                                    ->label(__('Rata-Rata Omset Usaha per Bulan (Rp)'))
+                                                                    ->required(),
+                                                                Forms\Components\TextInput::make('r_305_f_tambah')
+                                                                    ->numeric()
+                                                                    ->label(__('Rata-Rata Penghasilan Bersih per Bulan (Rp)'))
+                                                                    ->required(),
+                                                            ])
+                                                            ->addActionLabel('Tambah Pekerjaan')
+                                                            ->columnSpanFull(),
                                                     ]),
-                                                Forms\Components\Radio::make('r_307_tambah')
-                                                    ->required()
-                                                    ->visible(fn(Get $get) => $get('r_310') == '1')
-                                                    ->live()
-                                                    ->label(__('Pekerjaan Tambahan di Sektor Mana?'))
-                                                    ->options([
-                                                        '1' => 'Pertanian',
-                                                        '2' => 'Non Pertanian',
-                                                    ]),
-                                                Forms\Components\Repeater::make("Buruh Sektor Pertanian")
-                                                    ->visible(fn(Get $get) => $get('r_307_tambah') == '1')
+                                                Forms\Components\Fieldset::make('Buruh/Pegawai')
+                                                    ->visible(fn(Get $get) => $get('r_301_usaha_buruh_pekerjaBebas') == '2')
                                                     ->schema([
+                                                        Forms\Components\Radio::make('r_307')
+                                                            ->required()
+                                                            ->live()
+                                                            ->label(__('Pekerjaan Utama di Sektor Mana?'))
+                                                            ->options([
+                                                                '1' => 'Pertanian',
+                                                                '2' => 'Non Pertanian',
+                                                            ]),
+                                                        Forms\Components\Repeater::make('Buruh/Pegawai Sektor Pertanian')
+                                                            ->visible(fn(Get $get) => $get('r_307') == '1')
+                                                            ->schema([
+                                                                Forms\Components\Select::make('r_308_a')
+                                                                    ->label(__('Bekerja Sebagai'))
+                                                                    ->live()
+                                                                    ->required()
+                                                                    ->native(false)
+                                                                    ->searchable()
+                                                                    ->options([
+                                                                        '1' => 'Petani',
+                                                                        '2' => 'Peternak',
+                                                                        '3' => 'Nelayan',
+                                                                        '99' => 'Lainnya'
+                                                                    ]),
+                                                                Forms\Components\TextInput::make('r_308_b')
+                                                                    ->label(__('Pekerjaan Sektor Pertanian Lainnya'))
+                                                                    ->visible(fn(Get $get) => $get('r_308_a') == '99')
+                                                                    ->required()
+                                                                    ->maxLength(255),
+                                                            ])
+                                                            ->addActionLabel('Tambah Pekerjaan')
+                                                            ->columnSpanFull(),
+                                                        Forms\Components\Repeater::make('Buruh/Pegawai Sektor Non Pertanian')
+                                                            ->visible(fn(Get $get) => $get('r_307') == '2')
+                                                            ->schema([
+                                                                Forms\Components\Select::make('r_309_a')
+                                                                    ->label(__('Bekerja Sebagai'))
+                                                                    ->live()
+                                                                    ->required()
+                                                                    ->native(false)
+                                                                    ->searchable()
+                                                                    ->options([
+                                                                        '1' => 'Guru',
+                                                                        '2' => 'Pegawai BUMN/BUMD',
+                                                                        '3' => 'Aparat Desa/Kelurahan/Kecamatan',
+                                                                        '4' => 'TNI/Polri',
+                                                                        '5' => 'PNS',
+                                                                        '6' => 'Bagian IT',
+                                                                        '7' => 'Dokter',
+                                                                        '8' => 'Perawat',
+                                                                        '9' => 'Bidan',
+                                                                        '10' => 'Buruh Pabrik',
+                                                                        '99' => 'Lainnya'
+                                                                    ]),
+                                                                Forms\Components\TextInput::make('r_309_b')
+                                                                    ->label(__('Pekerjaan Sektor Pertanian Lainnya'))
+                                                                    ->visible(fn(Get $get) => $get('r_309_a') == '99')
+                                                                    ->required()
+                                                                    ->maxLength(255),
+                                                            ])
+                                                            ->addActionLabel('Tambah Pekerjaan')
+                                                            ->columnSpanFull(),
+                                                        Forms\Components\Radio::make('r_310')
+                                                            ->required()
+                                                            ->visible(fn(Get $get) => $get('r_307') != null)
+                                                            ->live()
+                                                            ->label(__('Apakah Ada Pekerjaan Tambahan?'))
+                                                            ->options([
+                                                                '1' => 'Ada',
+                                                                '2' => 'Tidak Ada',
+                                                            ]),
+                                                        Forms\Components\Radio::make('r_307_tambah')
+                                                            ->required()
+                                                            ->visible(fn(Get $get) => $get('r_310') == '1')
+                                                            ->live()
+                                                            ->label(__('Pekerjaan Tambahan di Sektor Mana?'))
+                                                            ->options([
+                                                                '1' => 'Pertanian',
+                                                                '2' => 'Non Pertanian',
+                                                            ]),
+                                                        Forms\Components\Repeater::make("Buruh Sektor Pertanian")
+                                                            ->visible(fn(Get $get) => $get('r_307_tambah') == '1')
+                                                            ->schema([
 
-                                                        Forms\Components\Select::make('r_308_a_tambah')
-                                                            ->label(__('Bekerja Sebagai'))
-                                                            ->live()
-                                                            ->required()
-                                                            ->native(false)
-                                                            ->searchable()
-                                                            ->options([
-                                                                '1' => 'Petani',
-                                                                '2' => 'Peternak',
-                                                                '3' => 'Nelayan',
-                                                                '99' => 'Lainnya'
-                                                            ]),
-                                                        Forms\Components\TextInput::make('r_308_b_tambah')
-                                                            ->label(__('Pekerjaan Sektor Pertanian Lainnya'))
-                                                            ->visible(fn(Get $get) => $get('r_308_a_tambah') == '99')
-                                                            ->required()
-                                                            ->maxLength(255),
-                                                    ])
-                                                    ->addActionLabel('Tambah Pekerjaan')
-                                                    ->columnSpanFull(),
-                                                Forms\Components\Repeater::make("Buruh Sektor Non Pertanian")
-                                                    ->visible(fn(Get $get) => $get('r_307_tambah') == '2')
-                                                    ->schema([
-                                                        Forms\Components\Select::make('r_309_a_tambah')
-                                                            ->label(__('Bekerja Sebagai'))
-                                                            ->live()
-                                                            ->required()
-                                                            ->native(false)
-                                                            ->searchable()
-                                                            ->options([
-                                                                '1' => 'Guru',
-                                                                '2' => 'Pegawai BUMN/BUMD',
-                                                                '3' => 'Aparat Desa/Kelurahan/Kecamatan',
-                                                                '4' => 'TNI/Polri',
-                                                                '5' => 'PNS',
-                                                                '6' => 'Bagian IT',
-                                                                '7' => 'Dokter',
-                                                                '8' => 'Perawat',
-                                                                '9' => 'Bidan',
-                                                                '10' => 'Buruh Pabrik',
-                                                                '99' => 'Lainnya'
-                                                            ]),
-                                                        Forms\Components\TextInput::make('r_309_b_tambah')
-                                                            ->label(__('Pekerjaan Sektor Pertanian Lainnya'))
-                                                            ->visible(fn(Get $get) => $get('r_309_a_tambah') == '99')
-                                                            ->required()
-                                                            ->maxLength(255),
-                                                    ])
-                                                    ->addActionLabel('Tambah Pekerjaan')
-                                                    ->columnSpanFull()
-                                            ]),
-                                        Forms\Components\Fieldset::make('Pekerja Bebas')
-                                            ->visible(fn(Get $get) => $get('r_301_usaha_buruh_pekerjaBebas') == '3')
-                                            ->schema([
-                                                Forms\Components\Radio::make('r_311')
-                                                    ->required()
-                                                    ->live()
-                                                    ->label(__('Pekerjaan Utama di Sektor Mana?'))
-                                                    ->options([
-                                                        '1' => 'Pertanian',
-                                                        '2' => 'Non Pertanian',
+                                                                Forms\Components\Select::make('r_308_a_tambah')
+                                                                    ->label(__('Bekerja Sebagai'))
+                                                                    ->live()
+                                                                    ->required()
+                                                                    ->native(false)
+                                                                    ->searchable()
+                                                                    ->options([
+                                                                        '1' => 'Petani',
+                                                                        '2' => 'Peternak',
+                                                                        '3' => 'Nelayan',
+                                                                        '99' => 'Lainnya'
+                                                                    ]),
+                                                                Forms\Components\TextInput::make('r_308_b_tambah')
+                                                                    ->label(__('Pekerjaan Sektor Pertanian Lainnya'))
+                                                                    ->visible(fn(Get $get) => $get('r_308_a_tambah') == '99')
+                                                                    ->required()
+                                                                    ->maxLength(255),
+                                                            ])
+                                                            ->addActionLabel('Tambah Pekerjaan')
+                                                            ->columnSpanFull(),
+                                                        Forms\Components\Repeater::make("Buruh Sektor Non Pertanian")
+                                                            ->visible(fn(Get $get) => $get('r_307_tambah') == '2')
+                                                            ->schema([
+                                                                Forms\Components\Select::make('r_309_a_tambah')
+                                                                    ->label(__('Bekerja Sebagai'))
+                                                                    ->live()
+                                                                    ->required()
+                                                                    ->native(false)
+                                                                    ->searchable()
+                                                                    ->options([
+                                                                        '1' => 'Guru',
+                                                                        '2' => 'Pegawai BUMN/BUMD',
+                                                                        '3' => 'Aparat Desa/Kelurahan/Kecamatan',
+                                                                        '4' => 'TNI/Polri',
+                                                                        '5' => 'PNS',
+                                                                        '6' => 'Bagian IT',
+                                                                        '7' => 'Dokter',
+                                                                        '8' => 'Perawat',
+                                                                        '9' => 'Bidan',
+                                                                        '10' => 'Buruh Pabrik',
+                                                                        '99' => 'Lainnya'
+                                                                    ]),
+                                                                Forms\Components\TextInput::make('r_309_b_tambah')
+                                                                    ->label(__('Pekerjaan Sektor Pertanian Lainnya'))
+                                                                    ->visible(fn(Get $get) => $get('r_309_a_tambah') == '99')
+                                                                    ->required()
+                                                                    ->maxLength(255),
+                                                            ])
+                                                            ->addActionLabel('Tambah Pekerjaan')
+                                                            ->columnSpanFull()
                                                     ]),
-                                                Forms\Components\Repeater::make("Buruh Sektor Pertanian")
-                                                    ->visible(fn(Get $get) => $get('r_311') == '1')
+                                                Forms\Components\Fieldset::make('Pekerja Bebas')
+                                                    ->visible(fn(Get $get) => $get('r_301_usaha_buruh_pekerjaBebas') == '3')
                                                     ->schema([
+                                                        Forms\Components\Radio::make('r_311')
+                                                            ->required()
+                                                            ->live()
+                                                            ->label(__('Pekerjaan Utama di Sektor Mana?'))
+                                                            ->options([
+                                                                '1' => 'Pertanian',
+                                                                '2' => 'Non Pertanian',
+                                                            ]),
+                                                        Forms\Components\Repeater::make("Buruh Sektor Pertanian")
+                                                            ->visible(fn(Get $get) => $get('r_311') == '1')
+                                                            ->schema([
 
-                                                        Forms\Components\Select::make('r_312_a')
-                                                            ->label(__('Bekerja Sebagai'))
+                                                                Forms\Components\Select::make('r_312_a')
+                                                                    ->label(__('Bekerja Sebagai'))
+                                                                    ->live()
+                                                                    ->required()
+                                                                    ->native(false)
+                                                                    ->searchable()
+                                                                    ->options([
+                                                                        '1' => 'Buruh Panen Padi',
+                                                                        '2' => 'Buruh Cangkul Sawah/Ladang',
+                                                                        '3' => 'Buruh Penyadap Karet',
+                                                                        '99' => 'Lainnya'
+                                                                    ]),
+                                                                Forms\Components\TextInput::make('r_312_b')
+                                                                    ->label(__('Pekerjaan Sektor Pertanian Lainnya'))
+                                                                    ->visible(fn(Get $get) => $get('r_312_a') == '99')
+                                                                    ->required()
+                                                                    ->maxLength(255),
+                                                            ])
+                                                            ->addActionLabel('Tambah Pekerjaan')
+                                                            ->columnSpanFull(),
+                                                        Forms\Components\Repeater::make("Buruh Sektor Non Pertanian")
+                                                            ->visible(fn(Get $get) => $get('r_311') == '2')
+                                                            ->schema([
+                                                                Forms\Components\Select::make('r_313_a')
+                                                                    ->label(__('Bekerja Sebagai'))
+                                                                    ->live()
+                                                                    ->required()
+                                                                    ->native(false)
+                                                                    ->searchable()
+                                                                    ->options([
+                                                                        '1' => 'Tukang Cuci Keliling',
+                                                                        '2' => 'Pemulung',
+                                                                        '3' => 'Tukang Gali Sumur',
+                                                                        '4' => 'Buruh Pabrik',
+                                                                        '5' => 'Tukang Bangunan',
+                                                                        '99' => 'Lainnya'
+                                                                    ]),
+                                                                Forms\Components\TextInput::make('r_313_b')
+                                                                    ->label(__('Pekerjaan Sektor Pertanian Lainnya'))
+                                                                    ->visible(fn(Get $get) => $get('r_313_a') == '99')
+                                                                    ->required()
+                                                                    ->maxLength(255),
+                                                            ])
+                                                            ->addActionLabel('Tambah Pekerjaan')
+                                                            ->columnSpanFull(),
+                                                        Forms\Components\Radio::make('r_314')
+                                                            ->required()
+                                                            ->visible(fn(Get $get) => $get('r_311') != null)
                                                             ->live()
-                                                            ->required()
-                                                            ->native(false)
-                                                            ->searchable()
+                                                            ->label(__('Apakah Ada Pekerjaan Tambahan?'))
                                                             ->options([
-                                                                '1' => 'Buruh Panen Padi',
-                                                                '2' => 'Buruh Cangkul Sawah/Ladang',
-                                                                '3' => 'Buruh Penyadap Karet',
-                                                                '99' => 'Lainnya'
+                                                                '1' => 'Ada',
+                                                                '2' => 'Tidak Ada',
                                                             ]),
-                                                        Forms\Components\TextInput::make('r_312_b')
-                                                            ->label(__('Pekerjaan Sektor Pertanian Lainnya'))
-                                                            ->visible(fn(Get $get) => $get('r_312_a') == '99')
+                                                        Forms\Components\Radio::make('r_311_tambah')
                                                             ->required()
-                                                            ->maxLength(255),
-                                                    ])
-                                                    ->addActionLabel('Tambah Pekerjaan')
-                                                    ->columnSpanFull(),
-                                                Forms\Components\Repeater::make("Buruh Sektor Non Pertanian")
-                                                    ->visible(fn(Get $get) => $get('r_311') == '2')
-                                                    ->schema([
-                                                        Forms\Components\Select::make('r_313_a')
-                                                            ->label(__('Bekerja Sebagai'))
+                                                            ->visible(fn(Get $get) => $get('r_314') == '1')
                                                             ->live()
-                                                            ->required()
-                                                            ->native(false)
-                                                            ->searchable()
+                                                            ->label(__('Pekerjaan Tambahan di Sektor Mana?'))
                                                             ->options([
-                                                                '1' => 'Tukang Cuci Keliling',
-                                                                '2' => 'Pemulung',
-                                                                '3' => 'Tukang Gali Sumur',
-                                                                '4' => 'Buruh Pabrik',
-                                                                '5' => 'Tukang Bangunan',
-                                                                '99' => 'Lainnya'
+                                                                '1' => 'Pertanian',
+                                                                '2' => 'Non Pertanian',
                                                             ]),
-                                                        Forms\Components\TextInput::make('r_313_b')
-                                                            ->label(__('Pekerjaan Sektor Pertanian Lainnya'))
-                                                            ->visible(fn(Get $get) => $get('r_313_a') == '99')
-                                                            ->required()
-                                                            ->maxLength(255),
-                                                    ])
-                                                    ->addActionLabel('Tambah Pekerjaan')
-                                                    ->columnSpanFull(),
-                                                Forms\Components\Radio::make('r_314')
-                                                    ->required()
-                                                    ->visible(fn(Get $get) => $get('r_311') != null)
-                                                    ->live()
-                                                    ->label(__('Apakah Ada Pekerjaan Tambahan?'))
-                                                    ->options([
-                                                        '1' => 'Ada',
-                                                        '2' => 'Tidak Ada',
-                                                    ]),
-                                                Forms\Components\Radio::make('r_311_tambah')
-                                                    ->required()
-                                                    ->visible(fn(Get $get) => $get('r_314') == '1')
-                                                    ->live()
-                                                    ->label(__('Pekerjaan Tambahan di Sektor Mana?'))
-                                                    ->options([
-                                                        '1' => 'Pertanian',
-                                                        '2' => 'Non Pertanian',
-                                                    ]),
-                                                Forms\Components\Repeater::make("Buruh Sektor Pertanian")
-                                                    ->visible(fn(Get $get) => $get('r_311_tambah') == '1')
-                                                    ->schema([
+                                                        Forms\Components\Repeater::make("Buruh Sektor Pertanian")
+                                                            ->visible(fn(Get $get) => $get('r_311_tambah') == '1')
+                                                            ->schema([
 
-                                                        Forms\Components\Select::make('r_312_a_tambah')
-                                                            ->label(__('Bekerja Sebagai'))
-                                                            ->live()
-                                                            ->required()
-                                                            ->native(false)
-                                                            ->searchable()
-                                                            ->options([
-                                                                '1' => 'Buruh Panen Padi',
-                                                                '2' => 'Buruh Cangkul Sawah/Ladang',
-                                                                '3' => 'Buruh Penyadap Karet',
-                                                                '99' => 'Lainnya'
-                                                            ]),
-                                                        Forms\Components\TextInput::make('r_312_b_tambah')
-                                                            ->label(__('Pekerjaan Sektor Pertanian Lainnya'))
-                                                            ->visible(fn(Get $get) => $get('r_312_a_tambah') == '99')
-                                                            ->required()
-                                                            ->maxLength(255),
-                                                    ])
-                                                    ->addActionLabel('Tambah Pekerjaan')
-                                                    ->columnSpanFull(),
-                                                Forms\Components\Repeater::make("Buruh Sektor Non Pertanian")
-                                                    ->visible(fn(Get $get) => $get('r_311_tambah') == '2')
-                                                    ->schema([
-                                                        Forms\Components\Select::make('r_313_a_tambah')
-                                                            ->label(__('Bekerja Sebagai'))
-                                                            ->live()
-                                                            ->required()
-                                                            ->native(false)
-                                                            ->searchable()
-                                                            ->options([
-                                                                '1' => 'Tukang Cuci Keliling',
-                                                                '2' => 'Pemulung',
-                                                                '3' => 'Tukang Gali Sumur',
-                                                                '4' => 'Buruh Pabrik',
-                                                                '5' => 'Tukang Bangunan',
-                                                                '99' => 'Lainnya'
-                                                            ]),
-                                                        Forms\Components\TextInput::make('r_313_b_tambah')
-                                                            ->label(__('Pekerjaan Sektor Pertanian Lainnya'))
-                                                            ->visible(fn(Get $get) => $get('r_313_a_tambah') == '99')
-                                                            ->required()
-                                                            ->maxLength(255),
-                                                    ])
-                                                    ->addActionLabel('Tambah Pekerjaan')
-                                                    ->columnSpanFull()
-                                            ]),
+                                                                Forms\Components\Select::make('r_312_a_tambah')
+                                                                    ->label(__('Bekerja Sebagai'))
+                                                                    ->live()
+                                                                    ->required()
+                                                                    ->native(false)
+                                                                    ->searchable()
+                                                                    ->options([
+                                                                        '1' => 'Buruh Panen Padi',
+                                                                        '2' => 'Buruh Cangkul Sawah/Ladang',
+                                                                        '3' => 'Buruh Penyadap Karet',
+                                                                        '99' => 'Lainnya'
+                                                                    ]),
+                                                                Forms\Components\TextInput::make('r_312_b_tambah')
+                                                                    ->label(__('Pekerjaan Sektor Pertanian Lainnya'))
+                                                                    ->visible(fn(Get $get) => $get('r_312_a_tambah') == '99')
+                                                                    ->required()
+                                                                    ->maxLength(255),
+                                                            ])
+                                                            ->addActionLabel('Tambah Pekerjaan')
+                                                            ->columnSpanFull(),
+                                                        Forms\Components\Repeater::make("Buruh Sektor Non Pertanian")
+                                                            ->visible(fn(Get $get) => $get('r_311_tambah') == '2')
+                                                            ->schema([
+                                                                Forms\Components\Select::make('r_313_a_tambah')
+                                                                    ->label(__('Bekerja Sebagai'))
+                                                                    ->live()
+                                                                    ->required()
+                                                                    ->native(false)
+                                                                    ->searchable()
+                                                                    ->options([
+                                                                        '1' => 'Tukang Cuci Keliling',
+                                                                        '2' => 'Pemulung',
+                                                                        '3' => 'Tukang Gali Sumur',
+                                                                        '4' => 'Buruh Pabrik',
+                                                                        '5' => 'Tukang Bangunan',
+                                                                        '99' => 'Lainnya'
+                                                                    ]),
+                                                                Forms\Components\TextInput::make('r_313_b_tambah')
+                                                                    ->label(__('Pekerjaan Sektor Pertanian Lainnya'))
+                                                                    ->visible(fn(Get $get) => $get('r_313_a_tambah') == '99')
+                                                                    ->required()
+                                                                    ->maxLength(255),
+                                                            ])
+                                                            ->addActionLabel('Tambah Pekerjaan')
+                                                            ->columnSpanFull()
+                                                    ]),
+                                            ])
+                                            ->addActionLabel('Tambah Pekerjaan')
                                     ])
                             ])
                             ->addActionLabel('Tambah Anggota Keluarga')
@@ -847,15 +851,15 @@ class QuestionnaireResource extends Resource
                         '3' => 'Belum Punya KK',
                     })
                     ->sortable(),
+                Tables\Columns\TextColumn::make('nama_petugas')
+                    ->label(__('Petugas Pendata'))
+                    ->searchable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('updated_at')
                     ->dateTime()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('nama_petugas')
-                    ->label(__('Petugas Pendata'))
-                    ->searchable(),
             ])
             ->filters([
                 //
