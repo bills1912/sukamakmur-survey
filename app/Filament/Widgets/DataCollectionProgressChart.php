@@ -17,7 +17,7 @@ class DataCollectionProgressChart extends ChartWidget
             'datasets' => [
                 [
                     'label' => ['Progress Pendataan'],
-                    'data' => Auth::user()->name != 'admin' ? Questionnaire::distinct()->where('nama_petugas', Auth::user()->name)->count('r_102') : Questionnaire::selectRaw('count(r_102) as total, nama_petugas')
+                    'data' => Auth::user()->name != 'admin' ? [Questionnaire::where('nama_petugas', Auth::user()->name)->count()] : Questionnaire::selectRaw('count(r_102) as total, nama_petugas')
                         ->groupBy('nama_petugas')
                         ->pluck('total')
                         ->toArray(),
@@ -79,7 +79,7 @@ class DataCollectionProgressChart extends ChartWidget
             ],
 
             // 'labels' => Auth::user()->roles == 'surveyor' ? Questionnaire::distinct()->pluck('nama_petugas')->toArray() : Questionnaire::where('nama_petugas', Auth::user()->name)->pluck('nama_petugas')
-            'labels' => Auth::user()->name != 'admin' ? Questionnaire::where('nama_petugas', Auth::user()->name)->pluck('nama_petugas') : Questionnaire::distinct()->pluck('nama_petugas')->toArray()
+            'labels' => Auth::user()->name != 'admin' ? Questionnaire::where('nama_petugas', Auth::user()->name)->distinct()->pluck('nama_petugas') : Questionnaire::distinct()->pluck('nama_petugas')->toArray()
         ];
     }
 
