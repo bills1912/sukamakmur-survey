@@ -6,7 +6,7 @@ use Filament\Widgets\ChartWidget;
 
 class AverageNetIncomeChart extends ChartWidget
 {
-    protected static ?int $sort = 3;
+    protected static ?int $sort = 4;
 
     protected static ?string $heading = 'Rata-Rata Pendapatan Bersih Penduduk Desa Suka Makmur';
 

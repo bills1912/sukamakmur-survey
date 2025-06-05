@@ -19,6 +19,10 @@ use Carbon\Carbon;
 use Filament\Forms\Set;
 use Illuminate\Support\Facades\Auth;
 use Filament\Forms\Components\Actions\Action;
+use Filament\Support\Enums\ActionSize;
+use Filament\Tables\Actions\ActionGroup;
+use App\Filament\Exports\QuestionnaireExporter;
+use Filament\Tables\Actions\ExportAction;
 
 class QuestionnaireResource extends Resource
 {
@@ -864,9 +868,15 @@ class QuestionnaireResource extends Resource
             ->filters([
                 //
             ])
+            ->headerActions([
+                ExportAction::make()
+                    ->exporter(QuestionnaireExporter::class),
+            ])
             ->actions([
-                Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make(),
+                ActionGroup::make([
+                    Tables\Actions\EditAction::make(),
+                    Tables\Actions\DeleteAction::make(),
+                ])->size(ActionSize::Small)
 
             ])
             ->bulkActions([
