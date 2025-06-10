@@ -23,18 +23,23 @@ use Filament\Support\Enums\ActionSize;
 use Filament\Tables\Actions\ActionGroup;
 use App\Filament\Exports\QuestionnaireExporter;
 use Filament\Tables\Actions\ExportAction;
+use Illuminate\Support\Facades\DB;
+
+// $ids
 
 class QuestionnaireResource extends Resource
 {
     protected static ?string $model = Questionnaire::class;
-
     protected static ?string $navigationLabel = 'Kuesioner';
     protected static ?string $title = 'User Management';
-
     protected static ?string $navigationIcon = 'heroicon-o-question-mark-circle';
-
+    
     public static function form(Form $form): Form
     {
+        // $jenis_kelamin = [];
+        // foreach (Questionnaire::where('id' ,'>' ,0)->pluck('id')->toArray() as $id) {
+        //     array_push($jenis_kelamin, Questionnaire::find($id)->r_200['r_205']);
+        // }
         return $form
             ->schema([
                 Forms\Components\Fieldset::make('Data Keluarga')
@@ -823,7 +828,7 @@ class QuestionnaireResource extends Resource
                             ->columnSpanFull(),
                         Forms\Components\Textarea::make('r_401')
                             ->label(__('Keterangan'))
-                            // ->maxLength(255)
+                            // ->default($jenis_kelamin)
                             ->columnSpanFull(),
                     ])
 

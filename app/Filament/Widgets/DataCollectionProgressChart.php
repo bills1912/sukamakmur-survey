@@ -24,7 +24,7 @@ class DataCollectionProgressChart extends ChartWidget
             'datasets' => [
                 [
                     'label' => ['Progress Pendataan'],
-                    'data' => Auth::user()->name != 'admin' ?
+                    'data' => Auth::user()->name != 'admin' || 'Muhammad Ervin Sugiar' || 'Deby' ?
                         ($dusun != null ? [Questionnaire::where('dusun', $dusun)->where('nama_petugas', Auth::user()->name)->count()]
                             : [Questionnaire::where('nama_petugas', Auth::user()->name)->count()])
                         : ($dusun != null ? Questionnaire::where('dusun', $dusun)->selectRaw('count(r_102) as total, nama_petugas')->groupBy('nama_petugas')->pluck('total')->toArray()
