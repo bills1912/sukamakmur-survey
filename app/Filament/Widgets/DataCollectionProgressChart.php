@@ -89,7 +89,7 @@ class DataCollectionProgressChart extends ChartWidget
             ],
 
             // 'labels' => Auth::user()->roles == 'surveyor' ? Questionnaire::distinct()->pluck('nama_petugas')->toArray() : Questionnaire::where('nama_petugas', Auth::user()->name)->pluck('nama_petugas')
-            'labels' => Auth::user()->name != 'admin' ? Questionnaire::where('nama_petugas', Auth::user()->name)->distinct()->pluck('nama_petugas') : Questionnaire::distinct()->pluck('nama_petugas')->toArray()
+            'labels' => Auth::user()->name != 'admin' ? Questionnaire::orderBy('nama_petugas')->where('nama_petugas', Auth::user()->name)->distinct()->pluck('nama_petugas') : Questionnaire::orderBy('nama_petugas')->distinct()->pluck('nama_petugas')->toArray()
         ];
     }
 
