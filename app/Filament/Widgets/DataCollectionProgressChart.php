@@ -24,11 +24,11 @@ class DataCollectionProgressChart extends ChartWidget
             'datasets' => [
                 [
                     'label' => ['Progress Pendataan'],
-                    'data' => Auth::user()->name != 'admin' || 'Muhammad Ervin Sugiar' || 'Deby' ?
-                        ($dusun != null ? [Questionnaire::where('dusun', $dusun)->where('nama_petugas', Auth::user()->name)->count()]
-                            : [Questionnaire::where('nama_petugas', Auth::user()->name)->count()])
-                        : ($dusun != null ? Questionnaire::where('dusun', $dusun)->selectRaw('count(r_102) as total, nama_petugas')->groupBy('nama_petugas')->pluck('total')->toArray()
-                            : Questionnaire::selectRaw('count(r_102) as total, nama_petugas')->groupBy('nama_petugas')->pluck('total')->toArray()),
+                    'data' => (Auth::user()->name == 'admin' || 'Deby' || "Muhammad Ervin Sugiar") ?
+                        ($dusun != null ? Questionnaire::where('dusun', $dusun)->selectRaw('count(r_102) as total, nama_petugas')->groupBy('nama_petugas')->pluck('total')->toArray()
+                            : Questionnaire::selectRaw('count(r_102) as total, nama_petugas')->groupBy('nama_petugas')->pluck('total')->toArray())
+                        : ($dusun != null ? [Questionnaire::where('dusun', $dusun)->where('nama_petugas', Auth::user()->name)->count()]
+                            : [Questionnaire::where('nama_petugas', Auth::user()->name)->count()]),
                     'backgroundColor' => [
                         'rgba(75, 192, 192, 0.2)',
                         'rgba(153, 102, 255, 0.2)',

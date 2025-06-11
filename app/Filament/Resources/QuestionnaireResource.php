@@ -828,7 +828,7 @@ class QuestionnaireResource extends Resource
                             ->columnSpanFull(),
                         Forms\Components\Textarea::make('r_401')
                             ->label(__('Keterangan'))
-                            // ->default($jenis_kelamin)
+                            // ->default(Auth::user()->name == 'admin' || 'Deby' || "Muhammad Ervin Sugiar")
                             ->columnSpanFull(),
                     ])
 
