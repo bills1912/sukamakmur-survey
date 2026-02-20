@@ -1,260 +1,296 @@
-# 🚀 Kaido Kit FilamentPhp Starter Code
+# 📊 Suka Makmur Village Survey System
 
-A powerful and opinionated FilamentPHP starter kit designed to accelerate your admin panel development. Kaido Kit provides a robust foundation with pre-configured plugins, configuration and best practices for building feature-rich admin interfaces.
+A comprehensive data collection and survey management system built for **Desa Suka Makmur** (Suka Makmur Village). This web application enables field officers to conduct household surveys, manage family data, and visualize population statistics through an intuitive admin dashboard.
 
-![GitHub stars](https://img.shields.io/github/stars/siubie/kaido-kit?style=flat-square)
-![GitHub forks](https://img.shields.io/github/forks/siubie/kaido-kit?style=flat-square)
-![GitHub issues](https://img.shields.io/github/issues/siubie/kaido-kit?style=flat-square)
-![License](https://img.shields.io/badge/License-MIT-blue?style=flat-square)
-![PHP Version](https://img.shields.io/badge/PHP-8.2-blue?style=flat-square&logo=php)
-![Laravel Version](https://img.shields.io/badge/Laravel-11.0-red?style=flat-square&logo=laravel)
-![Filament Version](https://img.shields.io/badge/Filament-3.2-purple?style=flat-square)
-## Introduction Video
-[![Build FilamentPhp Apps 10x Faster | Kaido-Kit Starter Kit (Complete Demo)](https://img.youtube.com/vi/t6q1zBqaBGU/maxresdefault.jpg)](http://www.youtube.com/watch?v=t6q1zBqaBGU "Build FilamentPhp Apps 10x Faster | Kaido-Kit Starter Kit (Complete Demo)")
+---
+
+## 🚀 Tech Stack
+
+| Layer | Technology |
+|---|---|
+| Backend Framework | Laravel 12 |
+| Admin Panel | Filament v3 |
+| Frontend | Vite + Tailwind CSS v3 |
+| Authentication | Laravel Sanctum + Filament Breezy |
+| Authorization | Filament Shield (Spatie Permission) |
+| SSO | Laravel Socialite (Google OAuth) |
+| API | Rupadana Filament API Service |
+| Map Picker | Afsakar Leaflet Map Picker |
+| Media | Spatie Laravel Media Library |
+| Settings | Spatie Laravel Settings |
+| Export | Filament Excel (pxlrbt) + Filament Actions Export |
+| Theme | Hasnayeen Themes |
+| Impersonation | STS Filament Impersonate |
+
+---
+
 ## ✨ Features
 
-### 🛠️ Developer Experience
+### 🏘️ Survey & Data Collection
+- Multi-step household questionnaire covering family members, demographics, and livelihoods
+- GPS-based house location picker using Leaflet Maps
+- Dynamic employment sector forms (Agriculture, Fisheries, Livestock, Other)
+- Support for primary and secondary occupation entries
+- Real-time age calculation from date of birth
+- Disability status tracking with multiple selections
 
-- ⚡ Quick CRUD generation with customized [FilamentPHP](https://filamentphp.com/) stubs
-    - Optimized UX out of the box
-    - No need to modify generated resources
-- 🔄 Auto reload on save for rapid development
-- 📚 Easy API documentation using [Scramble](https://scramble.dedoc.co/)
-- 📤 Built-in Export and Import examples in Filament resources
+### 📋 Resource Management
+- **Questionnaire Management** — Create, view, edit, and delete survey entries
+- **Survey Management** — Organize questionnaires under named surveys
+- **User Management** — Admin panel for managing field officers and roles
+- **Role & Permission Management** — Fine-grained access control via Filament Shield
+- **Book Management** — Sample CRUD resource with full API support
 
-### 🔐 Authentication & Authorization
+### 📊 Dashboard & Analytics
+- Real-time stats: total officers, household count, total ethnic groups
+- Data collection progress chart per officer (filterable by sub-village/dusun)
+- Population breakdown by education level
+- Gender distribution doughnut chart
+- Average net income by livelihood sector
+- Dashboard filter by **Dusun** (sub-village): I-A, I-B, II Timur, II Barat, III, IV
 
-- 🛡️ Role-Based Access Control (RBAC) using [Filament Shield](https://filamentphp.com/plugins/bezhansalleh-shield)
-- 🔑 Enhanced login page with custom design
-- 🌐 Social login with Google via [Filament Socialite](https://filamentphp.com/plugins/dododedodonl-socialite)
-- 👤 User profile management with [Filament Breezy](https://filamentphp.com/plugins/jeffgreco-breezy)
-- 🔒 Instant 2-Factor Authentication capabilities
-- 👥 Simple user-to-role assignment
-- 🎭 User impersonation via [Filament Impersonate](https://filamentphp.com/plugins/joseph-szobody-impersonate)
+### 🔐 Authentication & Security
+- Email/password login with rate limiting
+- Google OAuth (SSO) login
+- Two-factor authentication (2FA) via Filament Breezy
+- Email verification
+- User impersonation for admins
 
-### 📡 API & Integration
+### 📤 Export & Import
+- Export questionnaire data to Excel/CSV
+- Export and import users and books
+- Filament native export with completion notifications
 
-- 🚀 Full API support with [Filament API Service](https://filamentphp.com/plugins/rupadana-api-service)
-    - Seamlessly integrated with Shield
-    - Ready-to-use API endpoints
-- 📨 Email integration using [Resend](https://resend.com/)
-- 📝 Auto-generated API documentation
+### 🌐 REST API
+- Token-based authentication via Laravel Sanctum
+- Ability-scoped API tokens
+- Full CRUD API for Books resource (Create, Read, Update, Delete, Paginate)
+- Swagger/OpenAPI documentation via Dedoc Scramble
 
-### 📁 Media & Content Management
+### ⚙️ Settings
+- Configurable site name, registration, login, password reset, and SSO toggles
+- Managed via Spatie Laravel Settings with Filament UI
 
-- 🖼️ Integrated [Filament Media Library](https://filamentphp.com/plugins/filament-spatie-media-library)
-    - Easy media handling process
-    - [Spatie Media Library](https://spatie.be/docs/laravel-medialibrary) support
+---
 
-### ⚙️ Configuration & Settings
+## 📁 Project Structure
 
-- 🎛️ Dynamic plugin management via [Filament Settings](https://filamentphp.com/plugins/filament-spatie-settings)
-    - Enable/disable features on the fly
-    - [Spatie Laravel Settings](https://github.com/spatie/laravel-settings) integration
-
-## 🚀 Quick Start
-
-1. Create new project using composer
-
-    ```php
-    composer create-project siubie/kaido-kit
-    ```
-
-2. Composer install
-
-    ```php
-    composer install
-    ```
-
-3. Npm Install
-
-    ```php
-    npm install
-    ```
-
-4. Copy .env
-
-    ```php
-    cp .env.example .env
-    ```
-
-5. Configure your database in .env
-
-    ```php
-    DB_CONNECTION=mysql
-    DB_HOST=127.0.0.1
-    DB_PORT=3306
-    DB_DATABASE=kaido_kit
-    DB_USERNAME=root
-    DB_PASSWORD=
-    ```
-
-6. Configure your google sign in cliend id and secret (optional)
-
-    ```php
-    #google auth
-    GOOGLE_CLIENT_ID=
-    GOOGLE_CLIENT_SECRET=
-    GOOGLE_REDIRECT_URI=http://localhost:8000/admin/oauth/callback/google
-    ```
-
-7. Configure your resend for email sending (optional)
-
-    ```php
-    #resend
-    MAIL_MAILER=resend
-    MAIL_HOST=127.0.0.1
-    MAIL_PORT=2525
-    MAIL_USERNAME=null
-    MAIL_PASSWORD=null
-    MAIL_ENCRYPTION=null
-    RESEND_API_KEY=
-    MAIL_FROM_ADDRESS="admin@domain.com"
-    MAIL_FROM_NAME="${APP_NAME}"
-    ```
-
-8. Migrate your database
-
-    ```php
-    php artisan migrate --seed
-    ```
-
-9. Serve the Application
-
-    ```script
-    composer run dev
-    ```
-
-11. If run successfully you will get this login interface
-
-    ![image.png](.github/images/login-screen.png)
-
-12. When signed in it will show this (not much yet but it getting there :) )
-
-    ![image.png](.github/images/after-login-without-rbac.png)
-
-13. Next step is to setup the RBAC, first generate the role and permission
-
-    ```php
-    php artisan shield:generate --all
-    ```
-
-14. It will ask which panel do you want to generate permission/policies for choose the admin panel.
-15. Setup the super admin using this command
-
-    ```php
-    php artisan shield:super-admin
-    ```
-
-    ![image.png](.github/images/provide-superadmin.png)
-
-16. Choose your super admin user and login again.
-
-    ![image.png](.github/images/after-login-rbac.png)
-
-## Running on Docker with Laravel Sail
-
-1. Clone the repository
-
-```bash
-git clone https://github.com/siubie/kaido-kit.git
+```
+app/
+├── Filament/
+│   ├── Exports/          # Data exporters (Book, Contact, Questionnaire, User)
+│   ├── Imports/          # Data importers (Book, User)
+│   ├── Pages/            # Custom pages (Dashboard, Login, ManageSetting)
+│   ├── Resources/        # Filament resources (Book, Questionnaire, Role, Survey, User)
+│   └── Widgets/          # Dashboard widgets (Stats, Charts)
+├── Http/
+│   ├── Controllers/Api/  # API authentication controller
+│   └── Requests/         # Form request validation
+├── Models/               # Eloquent models
+├── Policies/             # Authorization policies
+├── Providers/            # Service providers
+└── Settings/             # Application settings class
 ```
 
-2. Copy .env.example to .env
+---
 
+## ⚙️ Installation
+
+### Prerequisites
+
+- PHP >= 8.2
+- Composer
+- Node.js >= 18
+- MySQL or SQLite database
+
+### Steps
+
+**1. Clone the repository**
 ```bash
-cp .env.example .env
+git clone https://github.com/your-username/your-repo.git
+cd your-repo
 ```
 
-3. Install dependencies
-
+**2. Install PHP dependencies**
 ```bash
 composer install
 ```
 
-4. Install Laravel Sail
-
+**3. Install Node.js dependencies**
 ```bash
-composer require laravel/sail --dev
-php artisan sail:install
+npm install
 ```
 
-5. Run Sail
-
+**4. Configure environment**
 ```bash
-./vendor/bin/sail up -d
+cp .env.example .env
+php artisan key:generate
 ```
 
-6. Generate App Key
+Edit `.env` with your database credentials and app settings:
+```env
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=your_database
+DB_USERNAME=your_username
+DB_PASSWORD=your_password
 
+# Google OAuth (optional)
+GOOGLE_CLIENT_ID=your_google_client_id
+GOOGLE_CLIENT_SECRET=your_google_client_secret
+GOOGLE_REDIRECT_URI=http://localhost/auth/google/callback
+```
+
+**5. Run migrations and seeders**
 ```bash
-./vendor/bin/sail artisan key:generate
+php artisan migrate --seed
 ```
 
-7. Run migration
-
+**6. Generate Shield permissions**
 ```bash
-./vendor/bin/sail artisan migrate --seed
+php artisan shield:generate --all --panel=admin
+php artisan shield:super-admin --user=1
 ```
 
-8. Next step is to setup the RBAC, first generate the role and permission
-
+**7. Link storage**
 ```bash
-./vendor/bin/sail artisan shield:generate --all
+php artisan storage:link
 ```
 
-9. Setup the super admin using this command
-
+**8. Build frontend assets**
 ```bash
-./vendor/bin/sail artisan shield:super-admin
+npm run build
 ```
 
-10. Serve the Application
-
+**9. Start the development server**
 ```bash
-./vendor/bin/sail composer run dev
+composer run dev
 ```
 
-## Security
-Set your app Debug to false in .env file
-```php
-APP_NAME="Kaido-Kit"
-APP_ENV=local
-APP_KEY=base64:gWUd7RPrCZm6iu7qFddY3039BQLroNHJ0nqKcBr8eeA=
-APP_DEBUG=false
-APP_TIMEZONE=UTC
-APP_URL=https://localhost:8000
+This command concurrently starts the Laravel server, queue worker, log viewer, and Vite dev server.
+
+---
+
+## 🛠️ Development Scripts
+
+| Command | Description |
+|---|---|
+| `composer run dev` | Start all dev services concurrently |
+| `composer run setup` | Fresh migration + seed + shield setup |
+| `npm run dev` | Vite development server |
+| `npm run build` | Build production assets |
+
+---
+
+## 🌐 API Documentation
+
+The REST API is automatically documented via **Dedoc Scramble**. Once the application is running, access the API docs at:
+
 ```
+http://localhost/docs/api
+```
+
+### Authentication
+
+```http
+POST /api/login
+Content-Type: application/json
+
+{
+  "email": "user@example.com",
+  "password": "password"
+}
+```
+
+Returns a Bearer token to be used in subsequent requests:
+```http
+Authorization: Bearer {token}
+```
+
+---
+
+## 🗺️ Questionnaire Data Model
+
+The questionnaire (`r_*` fields) follows a structured coding system:
+
+| Code Range | Section |
+|---|---|
+| `r_102` – `r_104` | Household identity & KK status |
+| `r_200` – `r_212` | Family members (repeater) |
+| `r_300` – `r_305` | Employment data per member |
+| `r_401` | General remarks |
+
+Employment data supports three worker types:
+- **Berusaha** (Self-employed/Business owner) — Agriculture, Fisheries, Livestock, Other
+- **Buruh/Pegawai** (Employee/Worker) — Agricultural or Non-agricultural sector
+- **Pekerja Bebas** (Freelance/Casual worker) — Agricultural or Non-agricultural sector
+
+Each type supports a primary and secondary (tambah) occupation entry.
+
+---
+
+## 👥 User Roles
+
+| Role | Access Level |
+|---|---|
+| `super_admin` | Full access to all resources and settings |
+| `admin` | Access to survey data, exports, user management |
+| `surveyor` | Can create and view their own questionnaire entries |
+
+Roles and permissions are managed through **Filament Shield** and can be customized from the admin panel under the **Roles** resource.
+
+---
+
+## 📸 Key Pages
+
+- **Dashboard** — Overview statistics and filterable charts
+- **Kuesioner** (Questionnaire) — Full household data collection form
+- **Daftar Survei** (Survey List) — Survey name management
+- **Users** — User management with role assignment and impersonation
+- **Roles** — Granular permission configuration
+- **My Profile** — Personal info, avatar, password change, and 2FA setup
+- **Settings** — Toggle site features (registration, login, SSO, etc.)
+
+---
+
+## 🔧 Configuration
+
+### Settings (via Admin Panel)
+
+Navigate to **Settings → Manage Settings** to configure:
+
+| Setting | Description |
+|---|---|
+| `site_name` | Application display name |
+| `site_active` | Enable/disable the site |
+| `registration_enabled` | Allow new user registrations |
+| `login_enabled` | Enable/disable login page |
+| `password_reset_enabled` | Enable password reset flow |
+| `sso_enabled` | Enable Google OAuth login |
+
+---
+
+## 📄 License
+
+This project is licensed under the **MIT License**. See the [LICENSE](LICENSE) file for details.
+
+---
 
 ## 🤝 Contributing
 
-We welcome contributions! Please follow these steps:
-
 1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add some amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
+2. Create a feature branch: `git checkout -b feature/your-feature-name`
+3. Commit your changes: `git commit -m 'Add some feature'`
+4. Push to the branch: `git push origin feature/your-feature-name`
 5. Open a Pull Request
 
-## 🙏 Acknowledgments
+---
 
-- [FilamentPHP](https://filamentphp.com/)
-- [Laravel](https://laravel.com/)
-- All our amazing contributors
+## 📬 Contact
 
-## 💬 Support
+For questions or support, please open an issue in the repository or contact the project maintainer.
 
-- 🐛 [Report a bug](https://github.com/siubie/kaido-kit/issues)
-- 💡 [Request a feature](https://github.com/siubie/kaido-kit/issues)
-- 📧 [Email support](mailto:putraprima@gmail.com)
-- 💬 [Discord community](https://discord.com/invite/RwqXDUJGPg)
-- 💬 [Whatsapp community](https://chat.whatsapp.com/HJtRp9Eo5wl6NhYIJbkuZL)
+---
 
-## ⭐ Show your support
-For Indonesian community you can get support and the recording course for how to create this kit here :
-https://www.dosenngoding.com/courses/8
-
-Give a ⭐️ if this project helped you!
-## Star History
-
-[![Star History Chart](https://api.star-history.com/svg?repos=siubie/kaido-kit&type=Date)](https://star-history.com/#siubie/kaido-kit&Date)
+> Built with ❤️ using [Laravel](https://laravel.com) and [Filament](https://filamentphp.com)
